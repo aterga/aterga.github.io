@@ -1,0 +1,30 @@
+{
+    "name": "Arshavir's Page",
+    "children": [
+        {
+            "name": "Intro",
+            "text": [
+                "I am broadly interested in Mathematics, especially in application to Computer Science.",
+                "I am a fifth-year PhD student at ETH~Zurich. My PhD is about automated reasoning in the scope of formal software verification."
+            ]
+        },
+        {
+            "name": "Projects",
+            "text": [
+                "The best way to learn is through projects."
+            ]
+        },
+        {
+            "name": "Mentorship", 
+            "text": [
+                "I strongly believe that mentorship is a key component to success."
+            ]
+        },
+        {
+            "name": "Movies",
+            "text": [
+                "I like to watch movies in my free time. My favorite filmmaker is David Lynch."
+            ]
+        }
+    ]
+}
