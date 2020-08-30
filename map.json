@@ -3,25 +3,65 @@
     "children": [
         {
             "name": "Intro",
+            "value": 100,
             "text": [
-                "I am broadly interested in Mathematics, especially in application to Computer Science.",
-                "I am a fifth-year PhD student at ETH~Zurich. My PhD is about automated reasoning in the scope of formal software verification."
+                "I am broadly interested in Mathematics, especially in application to Computer Science.<br>",
+                "I am a fifth-year PhD student at ETH~Zurich. My PhD is about automated reasoning in the scope of formal software verification.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            ],
+            "type": "html"
+        },
+        {
+            "name": "Research Interests",
+            "value": 50,
+            "children": [
+                {
+                    "name": "Modular Software Verification",
+                    "value": 5,
+                    "text": [
+                        "Read my latest paper: <a href='https://doi.org/10.1145/3360547'>Modular Verification of Heap Reachability Properties in Separation Logic</a>"
+                    ]
+                },
+                {
+                    "name": "Automated Formal Reasoning", 
+                    "value": 5,
+                    "text": [
+                        "Theorem provers. Model finders. Classifiers. What is the common ground?"
+                    ]
+                },
+                {
+                    "name": "Verification Debigging", 
+                    "value": 3,
+                    "text": [
+                        "In modular verification, the development workflow consists of",
+                        "(1) writing and debugging the implementation and the specification for each procedure",
+                        "and (2) constructing a formal proof that this implementation adheres to its specification.",
+                        "The latter problem is addressed by modern program verifiers that automate the workflow", 
+                        "and dramatically reduce the burden of constructing formal proofs manually.",
+                        "However, writing sound and complete specifications is an inherently hard mathematical problem",
+                        "that requires deep interaction between the programmer and the verifier.",
+                        "This interaction should be naturally supported by the IDE."
+                    ]
+                }
             ]
         },
         {
             "name": "Projects",
+            "value": 25,
             "text": [
                 "The best way to learn is through projects."
             ]
         },
         {
             "name": "Mentorship", 
+            "value": 20,
             "text": [
-                "I strongly believe that mentorship is a key component to success."
+                "I strongly believe that mentorship is a key component to success." 
             ]
         },
         {
             "name": "Movies",
+            "value": 20,
             "text": [
                 "I like to watch movies in my free time. My favorite filmmaker is David Lynch."
             ]
