@@ -2,36 +2,53 @@
     "name": "Arshavir's Page",
     "children": [
         {
-            "name": "Intro",
-            "value": 100,
+            "img": "img/arshavir-small.jpg",
+            "value": 140
+        },
+        {
+            "name": " ",
+            "value": 75,
             "text": [
-                "I am broadly interested in Mathematics, especially in application to Computer Science.<br>",
-                "I am a fifth-year PhD student at ETH~Zurich. My PhD is about automated reasoning in the scope of formal software verification.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ],
-            "type": "html"
+                "I am a final-year PhD student at ETH~Zurich, supervsed by Prof.~Peter~Müller. "
+            ]
+        },
+        {
+            "name": "Contact",
+            "value": 50,
+            "text": [
+                "ter-gabrielyan АТ inf.ethz.ch",
+                "",
+                "Universitätsstr. 6",
+                "CAB H 83.2",
+                "CH-8092 Zürich",
+                "",
+                "<a href='https://linked.in/Arshavir'>linked.in/Arshavir</a>"
+            ]
         },
         {
             "name": "Research Interests",
-            "value": 50,
+            "text": [
+                "I am currently writing a thesis about automated reasoning in the scope of formal program verification. Priorly, I have been building tools for automatically debugging power and performance issues for the Android platform while working at Intel's Strategic CAD Labs. Even earlier, I have worked on optimizing compilers, applying machine learning for automatically tuning compiler optimizations and designing new, scalable optimizations for an explicitely parallel host architecture."
+            ],
+            "value": 60,
             "children": [
                 {
                     "name": "Modular Software Verification",
-                    "value": 5,
+                    "value": 1000,
                     "text": [
                         "Read my latest paper: <a href='https://doi.org/10.1145/3360547'>Modular Verification of Heap Reachability Properties in Separation Logic</a>"
                     ]
                 },
                 {
                     "name": "Automated Formal Reasoning", 
-                    "value": 5,
+                    "value": 1000,
                     "text": [
                         "Theorem provers. Model finders. Classifiers. What is the common ground?"
                     ]
                 },
                 {
                     "name": "Verification Debigging", 
-                    "value": 3,
+                    "value": 3000,
                     "text": [
                         "In modular verification, the development workflow consists of",
                         "(1) writing and debugging the implementation and the specification for each procedure",
@@ -47,21 +64,14 @@
         },
         {
             "name": "Projects",
-            "value": 25,
+            "value": 50,
             "text": [
                 "The best way to learn is through projects."
             ]
         },
         {
-            "name": "Mentorship", 
-            "value": 20,
-            "text": [
-                "I strongly believe that mentorship is a key component to success." 
-            ]
-        },
-        {
             "name": "Movies",
-            "value": 20,
+            "value": 50,
             "text": [
                 "I like to watch movies in my free time. My favorite filmmaker is David Lynch."
             ]
