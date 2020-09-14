@@ -3,34 +3,35 @@
     "children": [
         {
             "img": "img/arshavir-small.jpg",
-            "value": 140
+            "value": 80
         },
         {
-            "name": " ",
-            "value": 75,
+            "name": "Academic Bio",
+            "value": 20,
             "text": [
-                "I am a final-year PhD student at ETH~Zurich, supervsed by Prof.~Peter~Müller. "
+                "I am a final-year PhD student at ETH~Zurich, supervsed by Prof.~Peter~Müller. I obtained my MSc degree in Computer Science (2015) and my BSc degree in Applied Mathematics and Physics (2013), both from Moscow Institute of Physics and Technology."
             ]
         },
         {
             "name": "Contact",
-            "value": 50,
+            "value": 30,
             "text": [
                 "ter-gabrielyan АТ inf.ethz.ch",
+                "<a href='http://linked.in/Arshavir'>Linkedin</a>",
+                "<a href='https://github.com/aterga'>Github</a>",
                 "",
                 "Universitätsstr. 6",
                 "CAB H 83.2",
-                "CH-8092 Zürich",
-                "",
-                "<a href='https://linked.in/Arshavir'>linked.in/Arshavir</a>"
+                "8092 Zürich",
+                "Switzerland"
             ]
         },
         {
             "name": "Research Interests",
+            "value": 40,
             "text": [
                 "I am currently writing a thesis about automated reasoning in the scope of formal program verification. Priorly, I have been building tools for automatically debugging power and performance issues for the Android platform while working at Intel's Strategic CAD Labs. Even earlier, I have worked on optimizing compilers, applying machine learning for automatically tuning compiler optimizations and designing new, scalable optimizations for an explicitely parallel host architecture."
             ],
-            "value": 60,
             "children": [
                 {
                     "name": "Modular Software Verification",
@@ -64,16 +65,16 @@
         },
         {
             "name": "Projects",
-            "value": 50,
+            "value": 30,
             "text": [
-                "The best way to learn is through projects."
+                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for formal deductive verification. My main focus is on extending Viper's specification features with advanced properties: heap reachability, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE.</a>"
             ]
         },
         {
             "name": "Movies",
-            "value": 50,
+            "value": 20,
             "text": [
-                "I like to watch movies in my free time. My favorite filmmaker is David Lynch."
+                "I like to watch movies in my free time. My favorite filmmaker David~Lynch; he's wonderful."
             ]
         }
     ]

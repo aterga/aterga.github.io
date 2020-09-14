@@ -57,6 +57,7 @@ body {
   margin: 0;
   text-align: justify;
   text-justify: inter-word;
+  line-height: 16pt;
 }
 .img {
   background-repeat: no-repeat;
@@ -100,4 +101,9 @@ g.hover .clickable {
 
 p a {
   color: royalblue;
+  text-decoration: none;
+}
+p a:hover {
+  color: royalblue;
+  background: rgb(91%,96%,100%);
 }
