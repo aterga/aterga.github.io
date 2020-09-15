@@ -9,7 +9,7 @@
             "name": "Academic Bio",
             "value": 20,
             "text": [
-                "I am a final-year PhD student at ETH~Zurich, supervsed by Prof.~Peter~Müller. I obtained my MSc degree in Computer Science (2015) and my BSc degree in Applied Mathematics and Physics (2013), both from Moscow Institute of Physics and Technology."
+                "I am a final-year PhD student at the <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervsed by Prof.~Peter~Müller. I obtained my MSc degree in Computer Science (2015) and my BSc degree in Applied Mathematics and Physics (2013), both from Moscow Institute of Physics and Technology."
             ]
         },
         {
@@ -67,7 +67,7 @@
             "name": "Projects",
             "value": 30,
             "text": [
-                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for formal deductive verification. My main focus is on extending Viper's specification features with advanced properties: heap reachability, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE.</a>"
+                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for formal deductive verification. My main focus is on extending Viper's specification features with advanced properties: heap reachability, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
             ]
         },
         {

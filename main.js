@@ -4,13 +4,16 @@ const height = 924
 const width = 954
 const header_height = 80
 const bleeding = 0
+const ble = 4
 
 const x = d3.scaleLinear().rangeRound([0, width]);
 const y = d3.scaleLinear().rangeRound([0, height]);
 
 var svg = d3.select('.main').append('svg')
-        .attr("viewBox", [     -bleeding,         -header_height-bleeding, 
-                          width+2*bleeding, height + header_height+2*bleeding])
+        .attr("viewBox", [     -ble,         -header_height-ble, 
+                          width+2*ble, height + header_height+2*ble])
+        // .attr("preserveAspectRatio", "slice")
+        .attr("xmlns", "http://www.w3.org/2000/svg")
         .style("font", "100% sans-serif");
 
 d3.json("./map.json").then(function (data) {
@@ -183,11 +186,10 @@ function render(group, root) {
     const node = group
       .selectAll("g")
       .filter(() => this.parentNode === root.node())
-      .data(root.children.concat(root))
+      .data([root].concat(root.children))
       .join("g")
 
     node.filter(d => d === root ? d.parent : d.children)
-        // .attr("cursor", "pointer")
         .on("click", d => d === root ? zoomout(group, root) : zoomin(group, d))
 
     node.on("mouseout", d => {
@@ -201,12 +203,13 @@ function render(group, root) {
 
     node.append("rect")
         .attr("id", (d,i) => (d.leafUid = "leaf" + i).id)
-        .attr("fill", "#fff")
+        .attr("fill", "transparent")
         .attr("stroke-width", 0)
         // .attr("stroke", "#000")
 
     const fo = node
         .append("foreignObject")
+        .attr("fill", "transparent")
         .attr("class", "svg-content");
     
     const div = fo
@@ -251,12 +254,12 @@ function render(group, root) {
     
     // Add paragraphs with text
     text_divs = content_divs.filter(d => d.data.name)
-    text_divs.selectAll("span")
+    text_divs.selectAll("h3")
         .data(d => [d.data.name])
         .join("h3")
         .html(d => d)
 
-    text_divs.selectAll("span")
+    text_divs.selectAll("p")
         .data(d => pick_content(d.data))
         .join("p")
         .html(d => d)
@@ -276,13 +279,15 @@ function zoomin(group, d) {
     svg.transition()
         .duration(750)
         .call(t => 
-                group0.transition(t).remove()
-                .call(position, d.parent))
+                group0.transition(t)
+                    .remove()
+                .call(position, d.parent)
+                .style("opacity", 0))
         .call(t => 
                 group1.call(fit_content, d)
                 .transition(t)
                 .attrTween("opacity", () => d3.interpolate(0, 1))
-                .call(position, d));
+                .call(position, d))
 }
 
 // When zooming out, draw the old nodes on top, and fade them out.
@@ -295,12 +300,17 @@ function zoomout(group, d) {
 
     svg.transition()
         .duration(750)
+        // .ease(d3.easeLinear)
         .call(t => 
                 group0.transition(t).remove()
-                .attrTween("opacity", () => d3.interpolate(1, 0))
+                // .attrTween("opacity", () => d3.interpolate(1, 0))
+                .style("opacity", 0)
                 .call(position, d))
         .call(t => 
-                group1.call(fit_content, d.parent)
+                group1
+                .call(fit_content, d.parent)
+                .style("opacity", 0)
                 .transition(t)
+                .style("opacity", 1)
                 .call(position, d.parent));
 }
