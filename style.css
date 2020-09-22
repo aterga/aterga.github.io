@@ -24,7 +24,7 @@ body {
   display: block;
   width: 100%;
   /* min-height: 100%; */
-  max-width: 1280px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
   overflow: visible;
@@ -40,6 +40,7 @@ body {
   display: inline-block;
   /* width: 100%; */
   height: 100%;
+  /* background: yellow; */
   clear: both;
   content: '';
   display: block;
@@ -65,11 +66,14 @@ body {
   /* padding-left: 0; */
 }
 .content p {
-  margin: 0;
+  margin: 12pt 0 0 0;
   text-align: justify;
   text-justify: inter-word;
   line-height: 16pt;
 }
+/* .content p br {
+  margin-top: ;
+} */
 .img {
   background-repeat: no-repeat;
   background-position: center;
@@ -97,13 +101,15 @@ body {
 }
 h3 {
   display: inline-block;
-  margin: 0 0 8pt 0;
+  margin: 0;
 }
 .expanding-frame > .content {
   display: inline-block;
+  width: 100%;
+  /* background: red; */
   /* background: #eee; */
-  padding: 4px 4px 0 4px;
-  margin: -4px -4px 0 -4px;
+  padding: 0;
+  margin: 0;
   /* left: -4px; */
   /* padding: 4px; */
   border: 0;
@@ -112,6 +118,7 @@ h3 {
   line-height: 160%;
   content: "Read more...";
   color: royalblue;
+
   /* text-decoration: underline; */
   /* text-decoration-style: dashed; */
   
@@ -130,8 +137,17 @@ h3 {
   text-decoration-style: double;  
   text-decoration-color: green;
 } */
-g.hover .clickable {
+g.hover .clickable.content {
   background-color: rgb(91%,96%,100%);
+  padding: 4px 4px 0 4px;
+  margin: -4px 4px 0 -4px;
+  color: royalblue;
+}
+
+g.hover .clickable.header {
+  background-color: rgb(91%,96%,100%);
+  /* padding: 4px 4px 0 4px;
+  margin: -4px 4px 0 -4px; */
   color: royalblue;
 }
 

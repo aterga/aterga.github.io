@@ -3,76 +3,35 @@
     "children": [
         {
             "img": "img/arshavir-small.jpg",
-            "value": 80
+            "value": 25
         },
         {
             "name": "Academic Bio",
-            "value": 20,
+            "value": 45,
             "text": [
-                "I am a final-year PhD student at the <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervsed by Prof.~Peter~Müller. I obtained my MSc degree in Computer Science (2015) and my BSc degree in Applied Mathematics and Physics (2013), both from Moscow Institute of Physics and Technology."
+                "I am a PhD student at the~<a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervsed by Prof.~Peter~Müller. My current focus is on developing scalable and precise automated formal reasoning techniques for program verification.",
+                "Before joining ETH in~2015, I have been Research Scientist at Intel's Strategic~CAD~Labs, working on tools for automatically debugging power and performance bugs in Android.",
+                "Prior to that, I was a member of one of Intel's optimizing compiler R&D projects in which I applied machine learning for automatically tuning compiler optimizations as well as designing novel optimizations for an explicitly parallel host architecture."
             ]
         },
+        
         {
             "name": "Contact",
-            "value": 30,
+            "value": 22,
             "text": [
-                "ter-gabrielyan АТ inf.ethz.ch",
-                "<a href='http://linked.in/Arshavir'>LinkedIn</a>",
-                "<a href='https://github.com/aterga'>GitHub</a>",
-                "",
-                "Universitätsstr. 6",
-                "CAB H 83.2",
-                "8092 Zürich",
-                "Switzerland"
-            ]
-        },
-        {
-            "name": "Research Interests",
-            "value": 40,
-            "text": [
-                "I am currently writing a thesis about automated reasoning in the scope of formal program verification. Priorly, I have been building tools for automatically debugging power and performance issues for the Android platform while working at Intel's Strategic CAD Labs. Even earlier, I have worked on optimizing compilers, applying machine learning for automatically tuning compiler optimizations and designing new, scalable optimizations for an explicitely parallel host architecture."
-            ],
-            "children": [
-                {
-                    "name": "Modular Software Verification",
-                    "value": 1000,
-                    "text": [
-                        "Read my latest paper: <a href='https://doi.org/10.1145/3360547'>Modular Verification of Heap Reachability Properties in Separation Logic</a>"
-                    ]
-                },
-                {
-                    "name": "Automated Formal Reasoning", 
-                    "value": 1000,
-                    "text": [
-                        "Theorem provers. Model finders. Classifiers. What is the common ground?"
-                    ]
-                },
-                {
-                    "name": "Verification Debigging", 
-                    "value": 3000,
-                    "text": [
-                        "In modular verification, the development workflow consists of",
-                        "(1) writing and debugging the implementation and the specification for each procedure",
-                        "and (2) constructing a formal proof that this implementation adheres to its specification.",
-                        "The latter problem is addressed by modern program verifiers that automate the workflow", 
-                        "and dramatically reduce the burden of constructing formal proofs manually.",
-                        "However, writing sound and complete specifications is an inherently hard mathematical problem",
-                        "that requires deep interaction between the programmer and the verifier.",
-                        "This interaction should be naturally supported by the IDE."
-                    ]
-                }
+                "Ter-Gabrielyan АТ inf.ethz.ch<br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><br>Universitätsstr. 6<br>CAB H 83.2<br>8092 Zürich<br>Switzerland"
             ]
         },
         {
             "name": "Projects",
-            "value": 30,
+            "value": 15,
             "text": [
-                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for formal deductive verification. My main focus is on extending Viper's specification features with advanced properties: heap reachability, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
+                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for deductive formal verification. My main focus is on extending Viper's specification features, enabling modular verification of <a href='https://dl.acm.org/doi/10.1145/3360547'>heap reachability</a>, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
             ]
         },
         {
             "name": "Movies",
-            "value": 20,
+            "value": 25,
             "text": [
                 "I like to watch movies in my free time. My favorite filmmaker David~Lynch; he's wonderful."
             ]

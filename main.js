@@ -151,7 +151,7 @@ function aspect_ratio(d) {
 function pick_content(d) {
     // In case this is a text block
     if (d.text) {
-        return [d.text.map((paragraph) => paragraph.replace(/~/g, '&nbsp;')).join('<br>')]
+        return d.text.map((paragraph) => paragraph.replace(/~/g, '&nbsp;'))
     } 
     // In case this is a pure navigation node without any text
     if (d.saved_children && d.saved_children.length > 0) {
