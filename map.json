@@ -2,36 +2,59 @@
     "name": "Arshavir's Page",
     "children": [
         {
-            "img": "img/arshavir-small.jpg",
-            "value": 25
-        },
-        {
-            "name": "Academic Bio",
-            "value": 45,
+            
+            "value": 40,
             "text": [
-                "I am a PhD student at the~<a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervsed by Prof.~Peter~Müller. My current focus is on developing scalable and precise automated formal reasoning techniques for program verification.",
+                "I am a PhD student at the~<a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervised by Prof.~Peter~Müller. My current focus is on developing scalable and precise automated formal reasoning techniques for program verification.",
                 "Before joining ETH in~2015, I have been Research Scientist at Intel's Strategic~CAD~Labs, working on tools for automatically debugging power and performance bugs in Android.",
-                "Prior to that, I was a member of one of Intel's optimizing compiler R&D projects in which I applied machine learning for automatically tuning compiler optimizations as well as designing novel optimizations for an explicitly parallel host architecture."
+                "Prior to that, I was a member of one of Intel's optimizing compiler R&D projects in which I applied machine learning for automatically tuning compiler optimizations as well as designing novel optimizations for an explicitly parallel host architecture.",
+                "I hold a MSc degree in Computer Science and a BSc degree in Applied Mathematics and Physics, both from MIPT, Russia."
             ]
         },
-        
+        {
+            "name": "Student projects",
+            "text": [
+                "I am looking for interns and students (both BSc and MSc level) who are interested in IDE development, cloud applications for developers, and formal verification."
+            ],
+            "children": [
+                {
+                    "name": "List of Supervised Thesis Projects", 
+                    "text": [
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Valentin_Racine_BA_Description.pdf'>Modular IDE Components for Verified Program Development</a><br>Valentin Racine (BSc thesis in progress)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Cedric_Stoll_MA_report.pdf'>SMT Models for Verification Debugging</a><br> Cédric Stoll (MSc thesis)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Tierry_Hoermann_BA_report.pdf'>Specification and Automated Reasoning for Datastructure Comprehensions</a><br> Tierry~Hörmann (BSc thesis, co-sup'd with~Alexander~J.~Summers)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Gishor_Sivanrupan_BA_report.pdf'>Deductive Verification of Imperative Graph Algorithms</a><br> Gishor Sivanrupan (BSc thesis)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Alessio%20Aurecchia_MA_report.pdf'>Creating an Advanced Debugger for Symbolic Execution</a><br> Alessio~Aurecchia (MSc thesis)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Benjamin_Weber_MA_report.pdf'>Automatic Verification of Closures and Lambda-Functions in Python</a><br> Benjamin Weber (MSc thesis)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Lukas_Schaer_BA_report.pdf'>Supporting Sequence Axiomatization on the SMT Solver Level for~the~Viper~Project</a><br> Lukas~Schär (MSc thesis)",
+                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Ruben_Kaelin_MA_report.pdf'>Advanced Features for an Integrated Verification Environment</a><br> Ruben~Kälin (MSc thesis)"        
+                    ],
+                    "value": 1
+                }
+            ],
+            "value": 30
+        },
         {
             "name": "Contact",
-            "value": 22,
+            "value": 32,
             "text": [
-                "Ter-Gabrielyan АТ inf.ethz.ch<br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><br>Universitätsstr. 6<br>CAB H 83.2<br>8092 Zürich<br>Switzerland"
+                "Ter-Gabrielyan АТ inf.ethz.ch<br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='https://polybox.ethz.ch/index.php/s/HhlnIZd1IEsx0AM/download'>CV</a><br><br>Universitätsstr. 6<br>CAB H 83.2<br>8092 Zürich<br>Switzerland"
             ]
         },
         {
-            "name": "Projects",
-            "value": 15,
+            "img": "img/arshavir-small.jpg",
+            "value": 50
+        },
+        {
+            "name": "Viper",
+            "value": 25,
             "text": [
                 "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for deductive formal verification. My main focus is on extending Viper's specification features, enabling modular verification of <a href='https://dl.acm.org/doi/10.1145/3360547'>heap reachability</a>, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
             ]
         },
         {
             "name": "Movies",
-            "value": 25,
+            "value": 15,
             "text": [
                 "I like to watch movies in my free time. My favorite filmmaker David~Lynch; he's wonderful."
             ]

@@ -1,3 +1,16 @@
+// From https://stackoverflow.com/a/7616484/12163693
+Object.defineProperty(String.prototype, 'hashCode', {
+    value: function() {
+        var hash = 0, i, chr;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    }
+});  
+
 // Inspired by https://observablehq.com/@d3/zoomable-treemap
 
 const height = 924
@@ -136,8 +149,9 @@ const preTile = function(parent, x0, y0, x1, y1) {
 function hash(d, i) {
     if (d.data.name) return `${d.data.name}-${i}`
     if (d.data.img) return `${d.data.img}-${i}`
+    if (d.data.text) return d.data.text.join("").hashCode()
 
-    throw "Invalid json: each node should have 'name' or 'img'."
+    throw "Invalid json: each node should have 'name', 'text', or 'img'."
 }
 
 function name(d) {
@@ -151,7 +165,13 @@ function aspect_ratio(d) {
 function pick_content(d) {
     // In case this is a text block
     if (d.text) {
-        return d.text.map((paragraph) => paragraph.replace(/~/g, '&nbsp;'))
+        if (Array.isArray(d.text)) {
+            return d.text.map((paragraph) => paragraph.replace(/~/g, '&nbsp;'))
+        } else if (typeof d.text == "string") { 
+            return [d.text.replace(/~/g, '&nbsp;')]
+        } else {
+            throw `Incorrect type in JSON data. Field 'text' must be array of strings or string. Actual type: ${typeof d.text} (${JSON.stringify(d.text)})`
+        }
     } 
     // In case this is a pure navigation node without any text
     if (d.saved_children && d.saved_children.length > 0) {
@@ -252,14 +272,20 @@ function render(group, root) {
         .attr("style", d => `background-image: url(${d.data.img})`)
         .attr("class", "img")
     
-    // Add paragraphs with text
+    // Add paragraphs with name and text
     text_divs = content_divs.filter(d => d.data.name)
     text_divs.selectAll("h3")
         .data(d => [d.data.name])
         .join("h3")
         .html(d => d)
-
     text_divs.selectAll("p")
+        .data(d => pick_content(d.data))
+        .join("p")
+        .html(d => d)
+
+    // Add paragraphs without name and with text
+    text_only_divs = content_divs.filter(d => d.data.text)
+    text_only_divs.selectAll("p")
         .data(d => pick_content(d.data))
         .join("p")
         .html(d => d)

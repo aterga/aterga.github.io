@@ -33,6 +33,9 @@ body {
   background: transparents;
 } */
 .content-frame {
+  /* The following option is sometimes needed for .img to respect its overflow margins. 
+     However, this option does not play nicely with the .hover class. */
+  overflow: hidden;
   width: 100%; 
   height: 100%;
 }
@@ -45,8 +48,11 @@ body {
   content: '';
   display: block;
   font-size: 12pt;
-  border-right: 30px solid transparent;
-  border-top: 30px solid transparent;
+  border: 0;
+  /* border-right: 30px solid white;
+  border-top: 30px solid white; */
+  margin-right: 30px; 
+  margin-top: 30px; 
   /* padding: 4px; */
 }
 .north {
@@ -70,6 +76,9 @@ body {
   text-align: justify;
   text-justify: inter-word;
   line-height: 16pt;
+}
+.content p:first-child {
+  margin: 0 !important;
 }
 /* .content p br {
   margin-top: ;
@@ -96,33 +105,15 @@ body {
   font-size: 18pt;
   line-height: 1.6;
   font-weight: bold;
-  /* padding: 4px; */
-  /* width: 100%; */
 }
 h3 {
   display: inline-block;
   margin: 0;
 }
-.expanding-frame > .content {
-  display: inline-block;
-  width: 100%;
-  /* background: red; */
-  /* background: #eee; */
-  padding: 0;
-  margin: 0;
-  /* left: -4px; */
-  /* padding: 4px; */
-  border: 0;
-}
 .expanding-frame > .content::after {
   line-height: 160%;
   content: "Read more...";
   color: royalblue;
-
-  /* text-decoration: underline; */
-  /* text-decoration-style: dashed; */
-  
-  /* font-style: oblique; */
 }
 .clickable {
   cursor: pointer; 
@@ -130,24 +121,22 @@ h3 {
 .clickable.header {
   color: royalblue;
 }
-/* .clickable a:hover {
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-decoration-skip-ink: auto;
-  text-decoration-style: double;  
-  text-decoration-color: green;
-} */
-g.hover .clickable.content {
-  background-color: rgb(91%,96%,100%);
+
+g.hover .expanding-frame {
+  overflow: visible;
+}
+g.hover .expanding-frame .clickable.content {
+  display: inline-block;
+  margin: 26px 26px 0 -4px; 
   padding: 4px 4px 0 4px;
-  margin: -4px 4px 0 -4px;
+  background-color: rgb(91%,96%,100%);
+  /* border-top: 30px solid red; */
+  /* border-right: 30px solid red; */
   color: royalblue;
 }
 
 g.hover .clickable.header {
   background-color: rgb(91%,96%,100%);
-  /* padding: 4px 4px 0 4px;
-  margin: -4px 4px 0 -4px; */
   color: royalblue;
 }
 
