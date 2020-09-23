@@ -3,7 +3,7 @@
     "children": [
         {
             
-            "value": 40,
+            "value": 46,
             "text": [
                 "I am a PhD student at the~<a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervised by Prof.~Peter~Müller. My current focus is on developing scalable and precise automated formal reasoning techniques for program verification.",
                 "Before joining ETH in~2015, I have been Research Scientist at Intel's Strategic~CAD~Labs, working on tools for automatically debugging power and performance bugs in Android.",
@@ -16,6 +16,7 @@
             "text": [
                 "I am looking for interns and students (both BSc and MSc level) who are interested in IDE development, cloud applications for developers, and formal verification."
             ],
+            "value": 26,
             "children": [
                 {
                     "name": "List of Supervised Thesis Projects", 
@@ -31,12 +32,11 @@
                     ],
                     "value": 1
                 }
-            ],
-            "value": 30
+            ]
         },
         {
             "name": "Contact",
-            "value": 32,
+            "value": 44,
             "text": [
                 "Ter-Gabrielyan АТ inf.ethz.ch<br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='https://polybox.ethz.ch/index.php/s/HhlnIZd1IEsx0AM/download'>CV</a><br><br>Universitätsstr. 6<br>CAB H 83.2<br>8092 Zürich<br>Switzerland"
             ]

@@ -115,6 +115,9 @@ h3 {
   content: "Read more...";
   color: royalblue;
 }
+g.hover .expanding-frame > .content::after {
+  color: rgb(44, 75, 167);
+}
 .clickable {
   cursor: pointer; 
 }
@@ -124,6 +127,8 @@ h3 {
 
 g.hover .expanding-frame {
   overflow: visible;
+  /* display: inline-block; */
+  /* position: relative; */
 }
 g.hover .expanding-frame .clickable.content {
   display: inline-block;
@@ -137,7 +142,7 @@ g.hover .expanding-frame .clickable.content {
 
 g.hover .clickable.header {
   background-color: rgb(91%,96%,100%);
-  color: royalblue;
+  color: rgb(44, 75, 167);
 }
 
 p a {
@@ -145,7 +150,7 @@ p a {
   text-decoration: none;
 }
 p a:hover {
-  color: royalblue;
+  color: rgb(44, 75, 167);
   background: rgb(91%,96%,100%);
 }
 a[href^="http://"]:not([href*="example.com"]):after,
