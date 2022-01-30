@@ -26,8 +26,8 @@ var svg = d3.select('.main').append('svg')
         .attr("viewBox", [     -ble,         -header_height-ble, 
                           width+2*ble, height + header_height+2*ble])
         // .attr("preserveAspectRatio", "slice")
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .style("font", "100% sans-serif");
+        .attr("xmlns", "http://www.w3.org/2000/svg");
+        // .style("font", "100% sans-serif");
 
 d3.json("./map.json").then(function (data) {
     format = d3.format(",d")
@@ -155,7 +155,7 @@ function hash(d, i) {
 }
 
 function name(d) {
-    return d.ancestors().reverse().map(d => d.data.name).join(" &#10230; ")
+    return d.ancestors().reverse().map(d => d.data.name).join(" <span class='arrow'>&#10230;</span> ")
 }
 
 function aspect_ratio(d) {

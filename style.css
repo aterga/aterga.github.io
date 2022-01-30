@@ -6,6 +6,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0; 
+  font-family: 'Mulish', sans-serif;
 }
 .main {
   position: absolute;
@@ -108,15 +109,23 @@ body {
   width: 100%;
   z-index: -999;
 }
-.header { 
-  
+.header {
+  margin-top: 20px;
   font-size: 18pt;
   line-height: 1.6;
   font-weight: bold;
 }
+.clickable.header {
+  margin-top: 4px !important;
+  color: royalblue;
+}
+
 h3 {
   display: inline-block;
   margin: 0;
+}
+.arrow {
+  font-size: 160%;
 }
 .expanding-frame > .content::after {
   line-height: 160%;
@@ -128,9 +137,6 @@ g.hover .expanding-frame > .content::after {
 }
 .clickable {
   cursor: pointer; 
-}
-.clickable.header {
-  color: royalblue;
 }
 
 g.hover .expanding-frame {
@@ -165,6 +171,9 @@ a[href^="http://"]:not([href*="example.com"]):after,
 a[href^="https://"]:not([href*="example.com"]):after {
   content: "\00A0↥";
   /* color: darkblue; */
+}
+a[href*=".pdf"]:after {
+  content: "\00A0↧" !important;
 }
 a.paper:after {
   content: "" !important;
