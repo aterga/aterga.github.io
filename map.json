@@ -1,63 +1,91 @@
 {
     "name": "Arshavir's Page",
     "children": [
-        {
-            
-            "value": 46,
+        {   
+            "value": 55,
             "text": [
-                "I am a PhD student at the~<a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a>, ETH~Zurich, supervised by Prof.~Peter~Müller. My current focus is on developing scalable and precise automated formal reasoning techniques for program verification.",
+                "I have recently completed my doctoral studies in Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My current focus is on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
                 "Before joining ETH in~2015, I have been Research Scientist at Intel's Strategic~CAD~Labs, working on tools for automatically debugging power and performance bugs in Android.",
-                "Prior to that, I was a member of one of Intel's optimizing compiler R&D projects in which I applied machine learning for automatically tuning compiler optimizations as well as designing novel optimizations for an explicitly parallel host architecture.",
+                "Prior to that, I was a member of a compiler R&D project at Intel, where I applied machine learning for automatically tuning compiler optimizations and designed novel optimizations for an explicitly parallel computer architecture.",
                 "I hold a MSc degree in Computer Science and a BSc degree in Applied Mathematics and Physics, both from MIPT, Russia."
             ]
         },
         {
-            "name": "Student projects",
+            "name": "News!",
             "text": [
-                "I am looking for interns and students (both BSc and MSc level) who are interested in IDE development, cloud applications for developers, and formal verification."
+                "🎓 I have completed my <b>doctoral thesis</b>: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
+                
+                "📜 Check out our <b>new FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
             ],
-            "value": 26,
+            "value": 85
+        },
+        {
+            "img": "img/arshavir-small.jpg",
+            "value": 40
+        },
+        {
+            "name": "Contacts",
+            "value": 20,
+            "text": [
+                "<code>tergabrielyan АТ gmail.com</code><br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='https://twitter.com/__wi'>Twitter</a><br><a href='docs/arshavir_cv_2022.pdf'>CV</a>",
+                "Grundstr. 21<br>8600 Zürich<br>Switzerland"
+            ]
+        },
+        {
+            "name": "More from my Ph.D.",
+            "text": "",
+            "value": 30,
             "children": [
                 {
-                    "name": "List of Supervised Thesis Projects", 
+                    "name": "Viper",
+                    "value": 60,
                     "text": [
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Valentin_Racine_BA_Description.pdf'>Modular IDE Components for Verified Program Development</a><br>Valentin Racine (BSc thesis in progress)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Cedric_Stoll_MA_report.pdf'>SMT Models for Verification Debugging</a><br> Cédric Stoll (MSc thesis)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Tierry_Hoermann_BA_report.pdf'>Specification and Automated Reasoning for Datastructure Comprehensions</a><br> Tierry~Hörmann (BSc thesis, co-sup'd with~Alexander~J.~Summers)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Gishor_Sivanrupan_BA_report.pdf'>Deductive Verification of Imperative Graph Algorithms</a><br> Gishor Sivanrupan (BSc thesis)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Alessio%20Aurecchia_MA_report.pdf'>Creating an Advanced Debugger for Symbolic Execution</a><br> Alessio~Aurecchia (MSc thesis)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Benjamin_Weber_MA_report.pdf'>Automatic Verification of Closures and Lambda-Functions in Python</a><br> Benjamin Weber (MSc thesis)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Lukas_Schaer_BA_report.pdf'>Supporting Sequence Axiomatization on the SMT Solver Level for~the~Viper~Project</a><br> Lukas~Schär (MSc thesis)",
-                        "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Ruben_Kaelin_MA_report.pdf'>Advanced Features for an Integrated Verification Environment</a><br> Ruben~Kälin (MSc thesis)"        
+                        "I used to be a member of the team developing <a href='http://viper.ethz.ch/'>Viper</a>, an intermediate language and the infrastructure for SMT-automated deductive formal verification. My focus was on extending Viper's specification features, enabling modular verification of <a href='https://dl.acm.org/doi/10.1145/3360547'>heap reachability</a> and comprehensions (data structure aggregations). Additionally, I used to be the maintainer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
+                    ]
+                },
+                {
+                    "name": "Student projects",
+                    "text": [
+                        "Over the course of my PhD, I have supervised multiple student projects, both at BSc and MSc levels."
                     ],
-                    "value": 1
+                    "value": 30,
+                    "children": [
+                        {
+                            "name": "List of Supervised Thesis Projects", 
+                            "text": [
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Valentin_Racine_BS_Report.pdf'>Modular IDE Components for Verified Program Development</a><br>Valentin Racine (BSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Cedric_Stoll_MA_report.pdf'>SMT Models for Verification Debugging</a><br> Cédric Stoll (MSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Tierry_Hoermann_BA_report.pdf'>Specification and Automated Reasoning for Datastructure Comprehensions</a><br> Tierry~Hörmann (BSc thesis, co-sup'd with~Alexander~J.~Summers)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Gishor_Sivanrupan_BA_report.pdf'>Deductive Verification of Imperative Graph Algorithms</a><br> Gishor Sivanrupan (BSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Alessio%20Aurecchia_MA_report.pdf'>Creating an Advanced Debugger for Symbolic Execution</a><br> Alessio~Aurecchia (MSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Benjamin_Weber_MA_report.pdf'>Automatic Verification of Closures and Lambda-Functions in Python</a><br> Benjamin Weber (MSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Lukas_Schaer_BA_report.pdf'>Supporting Sequence Axiomatization on the SMT Solver Level for~the~Viper~Project</a><br> Lukas~Schär (MSc thesis)",
+                                "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Ruben_Kaelin_MA_report.pdf'>Advanced Features for an Integrated Verification Environment</a><br> Ruben~Kälin (MSc thesis)"        
+                            ],
+                            "value": 1
+                        }
+                    ]
                 }
             ]
         },
         {
-            "name": "Contact",
-            "value": 44,
+            "name": "Publications",
             "text": [
-                "Ter-Gabrielyan АТ inf.ethz.ch<br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='https://polybox.ethz.ch/index.php/s/HwR7sbC5VKF5ZWi/download'>CV</a><br><br>Universitätsstr. 6<br>CAB H 83.2<br>8092 Zürich<br>Switzerland"
-            ]
-        },
-        {
-            "img": "img/arshavir-small.jpg",
-            "value": 50
-        },
-        {
-            "name": "Viper",
-            "value": 25,
-            "text": [
-                "I am a member of the <a href='http://viper.ethz.ch/'>Viper project</a>, developing an intermediate language and the infrastructure for deductive formal verification. My main focus is on extending Viper's specification features, enabling modular verification of <a href='https://dl.acm.org/doi/10.1145/3360547'>heap reachability</a>, comprehensions, etc. I am currently the main developer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
-            ]
-        },
-        {
-            "name": "Movies",
-            "value": 15,
-            "text": [
-                "I like to watch movies in my free time. My favorite filmmaker is David~Lynch; he's wonderful."
-            ]
+                ""
+            ],
+            "children": [
+                {
+                    "img": "img/oopsla19.png",
+                    "paper": "https://dl.acm.org/doi/pdf/10.1145/3360547",
+                    "value": 1
+                },
+                {
+                    "img": "img/fm21.png",
+                    "paper": "http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=BugariuTerGabrielyanMueller21.pdf",
+                    "value": 1
+                }
+            ],
+            "value": 15
         }
     ]
 }

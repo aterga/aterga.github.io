@@ -178,7 +178,7 @@ function pick_content(d) {
         return [] 
     }
     // Otherwise
-    return ["This section is under construction"]
+    return ['']
 }
 
 function position(group, root) {
@@ -270,7 +270,8 @@ function render(group, root) {
     image_divs = content_divs.filter(d => d.data.img)
     image_divs.append("div")
         .attr("style", d => `background-image: url(${d.data.img})`)
-        .attr("class", "img")
+        .attr("class", d => d.data.paper ? "img paper" : "img photo")
+        .html(d => d.data.paper ? `<a class='paper' href='${d.data.paper}'> </a>` : ``)
     
     // Add paragraphs with name and text
     text_divs = content_divs.filter(d => d.data.name)
