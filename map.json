@@ -1,21 +1,24 @@
 {
     "name": "Arshavir's Page",
     "children": [
-        {   
-            "value": 55,
+        {
+            "value": 65,
             "text": [
-                "I have recently completed my doctoral studies in Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My current focus is on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
-                "Before joining ETH in~2015, I have been Research Scientist at Intel's Strategic~CAD~Labs, working on tools for automatically debugging power and performance bugs in Android.",
-                "Prior to that, I was a member of a compiler R&D project at Intel, where I applied machine learning for automatically tuning compiler optimizations and designed novel optimizations for an explicitly parallel computer architecture.",
+                "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
+                "I am a software engineer at DFINITY since 2021.",
+                "I completed my doctoral studies in Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My focus was on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
+                "Before joining ETH, I worked at Intel as Research Scientist, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations and designed novel optimizations for an explicitly parallel computer architecture.",
                 "I hold a MSc degree in Computer Science and a BSc degree in Applied Mathematics and Physics, both from MIPT, Russia."
             ]
         },
         {
             "name": "News!",
             "text": [
+                "🏢 I have joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are <b>provably secure and reliable</b>.",
+
                 "🎓 I have completed my <b>doctoral thesis</b>: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
                 
-                "📜 Check out our <b>new FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
+                "📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
             ],
             "value": 85
         },
@@ -34,7 +37,7 @@
         {
             "name": "More from my Ph.D.",
             "text": "",
-            "value": 30,
+            "value": 25,
             "children": [
                 {
                     "name": "Viper",
