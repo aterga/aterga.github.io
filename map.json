@@ -5,10 +5,10 @@
             "value": 135,
             "text": [
                 "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
-                "I am a software engineer at the DFINITY Foundation since 2021. I recently joined the Network Nervous System (NNS) team and am the owner of the scalability testing framework for the <a href='https://support.dfinity.org/hc/en-us/articles/10899544349332-What-is-a-Service-Nervous-System-SNS-'>Service Nervous System</a>, a cutting edge framework for decentralizing Web3 applications. I have also been driving the code-level verification initiative resulting in the <a href='https://medium.com/dfinity/developer-grant-for-code-level-verification-in-motoko-37356a095e3c'><i>Motoko-san</i></a> prototype. Before joining the NNS team, I was a member of the Testing & Verification team, working on distributed system testing and formal policy monitoring.",
+                "I am a software researcher and engineer.",
+                "I recently joined the Network Nervous System (NNS) team at the DFINITY Foundation and am the owner of the scalability testing framework for the <a href='https://support.dfinity.org/hc/en-us/articles/10899544349332-What-is-a-Service-Nervous-System-SNS-'>Service Nervous System</a>, a blueprint for decentralizing Web3 applications. I have also been driving the code-level verification initiative resulting in the <a href='https://medium.com/dfinity/developer-grant-for-code-level-verification-in-motoko-37356a095e3c'><i>Motoko-san</i></a> prototype. Before joining the NNS team, I was a member of the Testing & Verification team, working on distributed system testing and formal policy monitoring.",
                 "I obtained my doctoral degree from Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. During my doctoral studies, my research was focused on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
-                "Before joining ETH, I was a Research Scientist at Intel's Strategic CAD Lab, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations, and have designed novel optimizations for an explicitly parallel computer architecture.",
-                "I hold a MSc degree in Computer Science and a BSc degree in Applied Mathematics and Physics, both from MIPT, Russia."
+                "Before joining ETH, I was a Research Scientist at Intel's Strategic CAD Lab, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations, and have designed a novel optimization for an explicitly parallel computer architecture."
             ]
         },
         {
@@ -91,8 +91,8 @@
                     "value": 1
                 },
                 {
-                    "img": "img/paper-covers/fm21.svg",
-                    "paper": "http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=BugariuTerGabrielyanMueller21.pdf",
+                    "img": "img/paper-covers/fac23.svg",
+                    "paper": "https://dl.acm.org/doi/pdf/10.1145/3571748",
                     "value": 1
                 }
             ],
