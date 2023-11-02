@@ -14,7 +14,7 @@
         {
             "name": "News!",
             "text": [
-                "🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>!",
+                "🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>! I'm currently working on <i>Matched Funding</i>, a smart contract for allocating funds during decentralization token swaps.",
                 "📜 Our case study on large-scale policy monitoring called <a href='https://dl.acm.org/doi/abs/10.1007/978-3-031-27481-7_22'>Monitoring the Internet Computer</a> has been accepted and appeared at Formal Methods 2023.",
                 "📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
                 "🏢 I have joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are <b>provably secure and reliable</b>.",
@@ -86,14 +86,19 @@
             ],
             "children": [
                 {
+                    "img": "img/paper-covers/fm23.svg",
+                    "paper": "docs/monitoring-the-internet-computer-fm-23.pdf",
+                    "value": 2
+                },
+                {
                     "img": "img/paper-covers/oopsla19.svg",
                     "paper": "https://dl.acm.org/doi/pdf/10.1145/3360547",
-                    "value": 1
+                    "value": 2
                 },
                 {
                     "img": "img/paper-covers/fac23.svg",
                     "paper": "https://dl.acm.org/doi/pdf/10.1145/3571748",
-                    "value": 1
+                    "value": 1.5
                 }
             ],
             "value": 13
