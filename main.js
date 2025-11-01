@@ -29,7 +29,7 @@ var svg = d3.select('.main').append('svg')
         .attr("xmlns", "http://www.w3.org/2000/svg");
         // .style("font", "100% sans-serif");
 
-d3.json("./map/_root.json").then(function (data) {
+d3.json("./map/root.json").then(function (data) {
     format = d3.format(",d")
     svg.append("g").call(render, treemap(data));
 })
