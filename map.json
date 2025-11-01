@@ -5,25 +5,25 @@
             "value": 135,
             "text": [
                 "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
-                "I am a software researcher and engineer.",
-                "I recently joined the Network Nervous System (NNS) team at the DFINITY Foundation and am the owner of the scalability testing framework for the <a href='https://support.dfinity.org/hc/en-us/articles/10899544349332-What-is-a-Service-Nervous-System-SNS-'>Service Nervous System</a>, a blueprint for decentralizing Web3 applications. I have also been driving the code-level verification initiative resulting in the <a href='https://medium.com/dfinity/developer-grant-for-code-level-verification-in-motoko-37356a095e3c'><i>Motoko-san</i></a> prototype. Before joining the NNS team, I worked on several cross-team projects, e.g., distributed system testing and formal policy monitoring.",
-                "I obtained my doctoral degree from Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. During my doctoral studies, my research was focused on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
+                "I am a software engineer and researcher.",
+                "I recently joined the Identity team at the DFINITY Foundation, where I focus on scaling <a href='https://id.ai'>Internet Identity</a>, a state-of-the-art trustless authentication service.",
+                "Priorly, I was the lead engineer for the <a href='https://learn.internetcomputer.org/hc/en-us/articles/34084394684564-SNS-Service-Nervous-System'>Service Nervous System</a> (SNS), a turnkey blockchain framework for launching and operating decentralized autonomous organizations.",
+                "I obtained my doctoral degree from Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My academic research was focused on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
                 "Before joining ETH, I was a Research Scientist at Intel's Strategic CAD Lab, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations, and have designed a novel optimization for an explicitly parallel computer architecture."
             ]
         },
         {
             "name": "News!",
             "text": [
-                "🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>! I'm currently working on <i>Matched Funding</i>, a smart contract for allocating funds during decentralization token swaps.",
-                "📜 Our study on large-scale policy monitoring called <a href='docs/monitoring-the-internet-computer-fm-23.pdf'>Monitoring the Internet Computer</a> has been <a href='https://dl.acm.org/doi/abs/10.1007/978-3-031-27481-7_22'>accepted and appeared</a> at Formal Methods 2023.",
-                "📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
-                "🏢 I have joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are <b>provably secure and reliable</b>.",
-
-                "🎓 I have completed my <b>doctoral thesis</b>: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
-                
+                "<small><code>Aug&nbsp;2025</code></small> 🪪 I'm on the mission to scale <a href='https://id.ai'>id.ai</a> to millions of users.",
+                "<small><code>Apr&nbsp;2024</code></small> 🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>! I'm currently working on <i>Matched Funding</i>, a smart contract for allocating funds during decentralization token swaps.",
+                "<small><code>Nov&nbsp;2023</code></small> 📜 Our study on large-scale policy monitoring called <a href='docs/monitoring-the-internet-computer-fm-23.pdf'>Monitoring the Internet Computer</a> has been <a href='https://dl.acm.org/doi/abs/10.1007/978-3-031-27481-7_22'>accepted and appeared</a> at Formal Methods 2023.",
+                "<small><code>Apr&nbsp;2023</code></small> 📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
+                "<small><code>Nov&nbsp;2021</code></small> 🏢 I joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are provably secure and reliable.",
+                "<small><code>Oct&nbsp;2021</code></small> 🎓 I completed my doctoral thesis: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
                 "<!--📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>.-->"
             ],
-            "value": 145
+            "value": 170
         },
         {
             "img": "img/arshavir-small.jpg",
@@ -31,16 +31,43 @@
         },
         {
             "name": "Contacts",
-            "value": 30,
+            "value": 20,
             "text": [
-                "<code>tergabrielyan АТ gmail.com</code><br><a href='http://linked.in/Arshavir'>LinkedIn</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='https://twitter.com/__wi'>Twitter</a><br><a href='docs/arshavir_cv_2024.pdf'>CV</a>",
+                "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
                 "Parkweg 8<br>8134 Zurich<br>Switzerland"
+            ]
+        },
+        {
+            "name": "Links to my talks",
+            "text": "",
+            "value": 15,
+            "children": [
+                {
+                    "name": "Transform Apps Into DAOs in 3 Steps | Internet Computer Framework Explained",
+                    "value": 100,
+                    "text": "<a href='https://youtu.be/yEu_lSe0GHY?si=TOkS7ifKgDx5ofBN'>Watch on YouTube</a>"
+                },
+                {
+                    "name": "SNS Vote Delegation | Internet Computer Governance Update",
+                    "value": 100,
+                    "text": "<a href='https://youtu.be/z2j3iphdycY?si=XXUWmBtrrfeAnF74'>Watch on YouTube</a>"
+                },
+                {
+                    "name": "Compositional Verification of Rich Program Properties in Separation Logic",
+                    "value": 100,
+                    "text": "<a href='https://youtu.be/J-CM8vACl3g?si=fXjmBU73X9Y8zpOH'>Watch on YouTube</a>"
+                },
+                {
+                    "name": "Modular Verification of Heap Reachability Properties in Separation Logic",
+                    "value": 100,
+                    "text": "<a href='https://youtu.be/f-BNwbTKM5k?si=UpPiba97ZMVgLDpe&t=37'>Watch on YouTube</a>"
+                }
             ]
         },
         {
             "name": "More from my Ph.D.",
             "text": "",
-            "value": 20,
+            "value": 15,
             "children": [
                 {
                     "value": 80,
