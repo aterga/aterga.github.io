@@ -43,24 +43,24 @@
             "value": 15,
             "children": [
                 {
-                    "name": "Transform Apps Into DAOs in 3 Steps | Internet Computer Framework Explained",
                     "value": 100,
-                    "text": "<a href='https://youtu.be/yEu_lSe0GHY?si=TOkS7ifKgDx5ofBN'>Watch on YouTube</a>"
+                    "img": "img/video-covers/yEu_lSe0GHY.jpg",
+                    "paper": "https://youtu.be/yEu_lSe0GHY?si=TOkS7ifKgDx5ofBN"
                 },
                 {
-                    "name": "SNS Vote Delegation | Internet Computer Governance Update",
                     "value": 100,
-                    "text": "<a href='https://youtu.be/z2j3iphdycY?si=XXUWmBtrrfeAnF74'>Watch on YouTube</a>"
+                    "img": "img/video-covers/J-CM8vACl3g.jpg",
+                    "paper": "https://youtu.be/J-CM8vACl3g?si=fXjmBU73X9Y8zpOH"
                 },
                 {
-                    "name": "Compositional Verification of Rich Program Properties in Separation Logic",
                     "value": 100,
-                    "text": "<a href='https://youtu.be/J-CM8vACl3g?si=fXjmBU73X9Y8zpOH'>Watch on YouTube</a>"
+                    "img": "img/video-covers/z2j3iphdycY.jpg",
+                    "paper": "https://youtu.be/z2j3iphdycY?si=XXUWmBtrrfeAnF74"
                 },
                 {
-                    "name": "Modular Verification of Heap Reachability Properties in Separation Logic",
                     "value": 100,
-                    "text": "<a href='https://youtu.be/f-BNwbTKM5k?si=UpPiba97ZMVgLDpe&t=37'>Watch on YouTube</a>"
+                    "img": "img/video-covers/f-BNwbTKM5k.jpg",
+                    "paper": "https://youtu.be/f-BNwbTKM5k?si=UpPiba97ZMVgLDpe&t=37"
                 }
             ]
         },
