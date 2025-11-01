@@ -1,0 +1,37 @@
+[
+    {
+        "value": 80,
+        "img": "img/thesis-cover.svg",
+        "paper": "https://doi.org/10.3929/ethz-b-000542001"
+    },
+    {
+        "name": "Viper",
+        "value": 15,
+        "text": [
+            "I used to be a member of the team developing <a href='http://viper.ethz.ch/'>Viper</a>, an intermediate language and the infrastructure for SMT-automated deductive formal verification. My focus was on extending Viper's specification features, enabling modular verification of <a href='https://dl.acm.org/doi/10.1145/3360547'>heap reachability</a> and comprehensions (data structure aggregations). Additionally, I used to be the maintainer of <a href='https://www.pm.inf.ethz.ch/research/viper/downloads.html'>Viper~IDE</a>."
+        ]
+    },
+    {
+        "name": "Student projects",
+        "text": [
+            "Over the course of my PhD, I have supervised multiple student projects, both at BSc and MSc levels."
+        ],
+        "value": 20,
+        "children": [
+            {
+                "name": "List of Supervised Thesis Projects", 
+                "text": [
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Valentin_Racine_BS_Report.pdf'>Modular IDE Components for Verified Program Development</a><br>Valentin Racine (BSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Cedric_Stoll_MA_report.pdf'>SMT Models for Verification Debugging</a><br> Cédric Stoll (MSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Tierry_Hoermann_BA_report.pdf'>Specification and Automated Reasoning for Datastructure Comprehensions</a><br> Tierry~Hörmann (BSc thesis, co-sup'd with~Alexander~J.~Summers)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Gishor_Sivanrupan_BA_report.pdf'>Deductive Verification of Imperative Graph Algorithms</a><br> Gishor Sivanrupan (BSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Alessio%20Aurecchia_MA_report.pdf'>Creating an Advanced Debugger for Symbolic Execution</a><br> Alessio~Aurecchia (MSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Benjamin_Weber_MA_report.pdf'>Automatic Verification of Closures and Lambda-Functions in Python</a><br> Benjamin Weber (MSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Lukas_Schaer_BA_report.pdf'>Supporting Sequence Axiomatization on the SMT Solver Level for~the~Viper~Project</a><br> Lukas~Schär (MSc thesis)",
+                    "<a href='https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Education/Theses/Ruben_Kaelin_MA_report.pdf'>Advanced Features for an Integrated Verification Environment</a><br> Ruben~Kälin (MSc thesis)"        
+                ],
+                "value": 1
+            }
+        ]
+    }
+]

@@ -29,71 +29,48 @@ var svg = d3.select('.main').append('svg')
         .attr("xmlns", "http://www.w3.org/2000/svg");
         // .style("font", "100% sans-serif");
 
-d3.json("./map.json").then(function (data) {
+d3.json("./map/_root.json").then(function (data) {
     format = d3.format(",d")
     svg.append("g").call(render, treemap(data));
 })
 
 function treemap(data)
 {
-    // console.log(d3.hierarchy(data))
     tm = d3.treemap().tile(tile)
-    
-    // layered_res = tm(layer(d3.hierarchy(data))
-    //                 .count()
-    //                 .sort((a, b) => b.value - a.value))
-
     res = tm(d3.hierarchy(data).sum(d => d.value))
-    
-    // console.log(res)
-
     return res
+}
 
-    // var tm = d3.treemap();
-    //     // .sort(function(a, b) { return a.value - b.value; })
-    //     // .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
-    //     // .round(true);
-    
-    // return layout(data, tm);
+// Helper function to process children after preTile calculation
+// refWidth/refHeight: dimensions used for preTile (affects partitioning decisions)
+// x0, y0, x1, y1: target bounds to scale children coordinates to
+function processTileChildren(node, refWidth, refHeight, x0, y0, x1, y1) {
+    for (const child of node.children) {
+        // Calculate corner status based on reference dimensions
+        child.is_north = (child.y0 == 0);
+        child.is_south = (child.y1 == refHeight);
+        child.is_west = (child.x0 == 0);
+        child.is_east = (child.x1 == refWidth);
+
+        // Apply bleeding to children that have their own children
+        if (child.children) {
+            if (child.is_north) child.y0 -= bleeding;
+            if (child.is_south) child.y1 += bleeding;
+            if (child.is_west) child.x0 -= bleeding;
+            if (child.is_east) child.x1 += bleeding;
+        }
+
+        // Scale coordinates from reference space to target bounds
+        child.x0 = x0 + child.x0 / refWidth * (x1 - x0);
+        child.x1 = x0 + child.x1 / refWidth * (x1 - x0);
+        child.y0 = y0 + child.y0 / refHeight * (y1 - y0);
+        child.y1 = y0 + child.y1 / refHeight * (y1 - y0);
+    }
 }
 
 function tile(node, x0, y0, x1, y1) {
     preTile(node, 0, 0, width, height);
-    for (const child of node.children) {
-        // save the childrens' cornering status for later
-        child.is_north = (child.y0 == 0)
-        child.is_south = (child.y1 == height)
-        child.is_west = (child.x0 == 0)
-        child.is_east = (child.x1 == width)
-        // console.log("---")
-        // console.log(child.data.name)
-        // console.log(child.is_north)
-        // console.log(child.is_east)
-        // console.log(child.is_south)
-        // console.log(child.is_west)
-        // console.log("+++")
-
-        if (child.children) {
-            if (child.is_north) {
-                child.y0 -= bleeding
-            }
-            if (child.is_south) {
-                child.y1 += bleeding
-            }
-            if (child.is_west) {
-                child.x0 -= bleeding
-            }
-            if (child.is_east) {
-                child.x1 += bleeding
-            }
-        }
-
-        // scale the obtained coords
-        child.x0 = x0 + child.x0 / width * (x1 - x0);
-        child.x1 = x0 + child.x1 / width * (x1 - x0);
-        child.y0 = y0 + child.y0 / height * (y1 - y0);
-        child.y1 = y0 + child.y1 / height * (y1 - y0);
-    }
+    processTileChildren(node, width, height, x0, y0, x1, y1);
 }
 
 const preTile = function(parent, x0, y0, x1, y1) {
@@ -209,7 +186,7 @@ function render(group, root) {
       .data([root].concat(root.children))
       .join("g")
 
-    node.filter(d => d === root ? d.parent : d.children)
+    node.filter(d => d === root ? d.parent : (d.children || d.data.children_file))
         .on("click", d => d === root ? zoomout(group, root) : zoomin(group, d))
 
     node.on("mouseout", d => {
@@ -235,8 +212,8 @@ function render(group, root) {
     const div = fo
         .append('xhtml:div')
         .attr("class", d => {
-            if (d === root) return "content-frame header-frame" 
-            if (d.children) return "content-frame expanding-frame" 
+            if (d === root) return "content-frame header-frame"
+            if (d.children || d.data.children_file) return "content-frame expanding-frame"
             return "content-frame"
         })
         .append('div')
@@ -251,7 +228,7 @@ function render(group, root) {
         if (d.is_south) cs.push("south")
         if (d.is_west) cs.push("west")
         if (d.data.img) cs.push("img-holder")
-        if (d.children) cs.push("clickable")
+        if (d.children || d.data.children_file) cs.push("clickable")
         content_classes[hash(d,i)] = cs
         // console.log(cs)
         // console.log(JSON.parse(JSON.stringify(content_classes)))
@@ -297,6 +274,63 @@ function render(group, root) {
 
 // When zooming in, draw the new nodes on top, and fade them in.
 function zoomin(group, d) {
+    // If the node has a children_file, load it before rendering
+    if (d.data.children_file && !d.children) {
+        d3.json(d.data.children_file).then(function(children) {
+            // Save the node's bounds
+            const x0 = d.x0, y0 = d.y0, x1 = d.x1, y1 = d.y1;
+            const nodeWidth = x1 - x0;
+            const nodeHeight = y1 - y0;
+            
+            // Attach loaded children to the node's data
+            d.data.children = children;
+            
+            // Rebuild the hierarchy from d.data (which now has children)
+            // This creates a new hierarchy with the children properly attached
+            const hierarchy = d3.hierarchy(d.data).sum(d => d.value);
+            
+            // Create a treemap layout with a tile function that works within the node's dimensions
+            // Key: Use global width/height for preTile to get the same partitioning behavior,
+            // then scale to the node's actual dimensions
+            const tm = d3.treemap().tile(function(node, x0_tile, y0_tile, x1_tile, y1_tile) {
+                // Use preTile with global dimensions (same as original tile function)
+                // This ensures the same partitioning decisions (horizontal vs vertical splits)
+                tile(node, x0_tile, y0_tile, x1_tile, y1_tile);
+            }).size([nodeWidth, nodeHeight]);
+            
+            // Calculate the layout - this will set coordinates for all nodes
+            const newD = tm(hierarchy);
+            
+            // Set the root node's bounds to match the original node's position
+            newD.x0 = x0;
+            newD.y0 = y0;
+            newD.x1 = x1;
+            newD.y1 = y1;
+            
+            // Translate all children coordinates from layout space (0,0) to actual position (x0, y0)
+            if (newD.children) {
+                newD.each(function(node) {
+                    if (node !== newD) {
+                        node.x0 = x0 + node.x0;
+                        node.x1 = x0 + node.x1;
+                        node.y0 = y0 + node.y0;
+                        node.y1 = y0 + node.y1;
+                    }
+                });
+            }
+            
+            // Update the parent reference so zoomout works correctly
+            newD.parent = d.parent;
+            
+            // Now proceed with zoomin using the properly laid out node
+            doZoomIn(group, newD);
+        });
+    } else {
+        doZoomIn(group, d);
+    }
+}
+
+function doZoomIn(group, d) {
     const group0 = group.attr("pointer-events", "none");
     const group1 = group = svg.append("g").call(render, d);
 

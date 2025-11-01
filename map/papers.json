@@ -1,0 +1,17 @@
+[
+    {
+        "img": "img/paper-covers/fm23.svg",
+        "paper": "docs/monitoring-the-internet-computer-fm-23.pdf",
+        "value": 2
+    },
+    {
+        "img": "img/paper-covers/oopsla19.svg",
+        "paper": "https://dl.acm.org/doi/pdf/10.1145/3360547",
+        "value": 2
+    },
+    {
+        "img": "img/paper-covers/fac23.svg",
+        "paper": "https://dl.acm.org/doi/pdf/10.1145/3571748",
+        "value": 1.5
+    }
+]
