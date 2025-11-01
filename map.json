@@ -23,7 +23,7 @@
                 "<small><code>Oct&nbsp;2021</code></small> 🎓 I completed my doctoral thesis: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
                 "<!--📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>.-->"
             ],
-            "value": 170
+            "value": 175
         },
         {
             "img": "img/arshavir-small.jpg",
