@@ -29,9 +29,37 @@ var svg = d3.select('.main').append('svg')
         .attr("xmlns", "http://www.w3.org/2000/svg");
         // .style("font", "100% sans-serif");
 
+let rootData = null; // Store root data for browser navigation
+
 d3.json("./map/root.json").then(function (data) {
     format = d3.format(",d")
-    svg.append("g").call(render, treemap(data));
+    rootData = data; // Save for later use
+    const root = treemap(data);
+    
+    // Check if there's a hash in the URL to navigate to
+    const hash = window.location.hash.slice(1); // Remove the '#'
+    if (hash) {
+        navigateToPath(root, hash, svg.append("g"));
+    } else {
+        svg.append("g").call(render, root);
+    }
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+        // Clear existing SVG content
+        svg.selectAll("g").remove();
+        
+        // Get the hash and navigate using the same logic as initial load
+        const newHash = window.location.hash.slice(1);
+        // Create a fresh treemap from the original data (deep copy to avoid mutations)
+        const newRoot = treemap(JSON.parse(JSON.stringify(rootData)));
+        
+        if (newHash) {
+            navigateToPath(newRoot, newHash, svg.append("g"));
+        } else {
+            svg.append("g").call(render, newRoot);
+        }
+    });
 })
 
 function treemap(data)
@@ -133,6 +161,133 @@ function hash(d, i) {
 
 function name(d) {
     return d.ancestors().reverse().map(d => d.data.name).join(" <span class='arrow'>&#10230;</span> ")
+}
+
+// Convert node name to URL-friendly slug
+function nameToSlug(name) {
+    if (!name) return '';
+    return name.toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-')      // Replace spaces with hyphens
+        .replace(/--+/g, '-')      // Replace multiple hyphens with single hyphen
+        .trim();
+}
+
+// Get URL hash path from node (e.g., "links-to-my-talks")
+function getNodePath(d) {
+    const ancestors = d.ancestors().reverse().slice(1); // Skip root "Arshavir's Page"
+    if (ancestors.length === 0) return '';
+    return ancestors.map(node => nameToSlug(node.data.name)).join('/');
+}
+
+// Navigate to a specific path in the tree based on URL hash
+// path: URL hash like "more-from-my-phd/student-projects"
+// root: the root node of the tree
+// group: the SVG group to render into
+function navigateToPath(root, path, group) {
+    if (!path) {
+        group.call(render, root);
+        return;
+    }
+    
+    const segments = path.split('/');
+    let currentNode = root;
+    let segmentIndex = 0;
+    
+    // Function to continue navigation after loading children if needed
+    function continueNavigation() {
+        if (segmentIndex >= segments.length) {
+            // We've reached the target node
+            // If the target has children_file but no children, load them before rendering
+            if (currentNode.data.children_file && !currentNode.children) {
+                loadChildrenAndRender(currentNode);
+            } else {
+                // Rebuild treemap with this node as root and render
+                const newRoot = treemap(currentNode.data);
+                // Restore parent reference to maintain breadcrumb path
+                newRoot.parent = currentNode.parent;
+                group.call(render, newRoot);
+            }
+            return;
+        }
+        
+        const targetSlug = segments[segmentIndex];
+        
+        // Find the child node that matches the current segment
+        if (!currentNode.children) {
+            // No children available, rebuild and render what we have
+            const newRoot = treemap(currentNode.data);
+            newRoot.parent = currentNode.parent;
+            group.call(render, newRoot);
+            return;
+        }
+        
+        const nextNode = currentNode.children.find(child => 
+            nameToSlug(child.data.name) === targetSlug
+        );
+        
+        if (!nextNode) {
+            // Target not found, rebuild and render what we have
+            const newRoot = treemap(currentNode.data);
+            newRoot.parent = currentNode.parent;
+            group.call(render, newRoot);
+            return;
+        }
+        
+        currentNode = nextNode;
+        segmentIndex++;
+        
+        // If this node has children_file and no children loaded yet, load them
+        if (currentNode.data.children_file && !currentNode.children && segmentIndex < segments.length) {
+            loadChildrenAndContinue(currentNode);
+        } else {
+            continueNavigation();
+        }
+    }
+    
+    // Load children from external file and continue navigation
+    function loadChildrenAndContinue(node) {
+        d3.json(node.data.children_file).then(function(children) {
+            // Attach children to data for future navigation
+            node.data.children = children;
+            
+            // Rebuild the node with its children using treemap
+            // This gives proper coordinates for navigation
+            const hierarchy = d3.hierarchy(node.data).sum(d => d.value);
+            const tm = d3.treemap().tile(tile).size([width, height]);
+            const newNode = tm(hierarchy);
+            
+            // Keep parent reference
+            newNode.parent = node.parent;
+            
+            // Replace current node in tree if it has a parent
+            if (node.parent && node.parent.children) {
+                const index = node.parent.children.indexOf(node);
+                if (index !== -1) {
+                    node.parent.children[index] = newNode;
+                }
+            }
+            
+            currentNode = newNode;
+            continueNavigation();
+        });
+    }
+    
+    // Load children from external file and render the final node
+    function loadChildrenAndRender(node) {
+        d3.json(node.data.children_file).then(function(children) {
+            node.data.children = children;
+            
+            // Rebuild treemap with loaded data
+            const newRoot = treemap(node.data);
+            // Restore parent reference to maintain breadcrumb path
+            newRoot.parent = node.parent;
+            group.call(render, newRoot);
+        });
+    }
+    
+    // Start navigation
+    continueNavigation();
 }
 
 function aspect_ratio(d) {
@@ -337,6 +492,14 @@ function doZoomIn(group, d) {
     x.domain([d.x0, d.x1]);
     y.domain([d.y0, d.y1]);
 
+    // Update URL hash
+    const path = getNodePath(d);
+    if (path) {
+        history.pushState(null, '', '#' + path);
+    } else {
+        history.pushState(null, '', window.location.pathname);
+    }
+
     svg.transition()
         .duration(750)
         .call(t => 
@@ -353,11 +516,29 @@ function doZoomIn(group, d) {
 
 // When zooming out, draw the old nodes on top, and fade them out.
 function zoomout(group, d) {
+    // If coming from a hash-rendered root, parent may not have viewport coords.
+    // Rebuild parent as a fresh treemap root (viewport [0,width]x[0,height]).
+    let parentRoot = d.parent;
+    if (parentRoot && (parentRoot.x0 === undefined || parentRoot.x1 === undefined)) {
+        parentRoot = treemap(parentRoot.data);
+        // Preserve grandparent for breadcrumbs
+        parentRoot.parent = d.parent.parent;
+    }
+
     const group0 = group.attr("pointer-events", "none");
-    const group1 = group = svg.insert("g", "*").call(render, d.parent);
-    
-    x.domain([d.parent.x0, d.parent.x1]);
-    y.domain([d.parent.y0, d.parent.y1]);
+    const group1 = group = svg.insert("g", "*").call(render, parentRoot);
+
+    // Animate to full viewport of the parent root
+    x.domain([parentRoot.x0, parentRoot.x1]);
+    y.domain([parentRoot.y0, parentRoot.y1]);
+
+    // Update URL hash
+    const path = getNodePath(parentRoot);
+    if (path) {
+        history.pushState(null, '', '#' + path);
+    } else {
+        history.pushState(null, '', window.location.pathname);
+    }
 
     svg.transition()
         .duration(750)
@@ -369,9 +550,9 @@ function zoomout(group, d) {
                 .call(position, d))
         .call(t => 
                 group1
-                .call(fit_content, d.parent)
+                .call(fit_content, parentRoot)
                 .style("opacity", 0)
                 .transition(t)
                 .style("opacity", 1)
-                .call(position, d.parent));
+                .call(position, parentRoot));
 }
