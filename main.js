@@ -32,15 +32,22 @@ var svg = d3.select('.main').append('svg')
 let rootData = null; // Store root data for browser navigation
 
 d3.json("./map/root.json").then(function (data) {
-    format = d3.format(",d")
+    console.log("Data loaded successfully:", data);
     rootData = data; // Save for later use
     const root = treemap(data);
+    console.log("Treemap created:", root);
+    
+    // Set initial domain to identity mapping (treemap creates coords from 0 to width/height)
+    x.domain([0, width]);
+    y.domain([0, height]);
     
     // Check if there's a hash in the URL to navigate to
     const hash = window.location.hash.slice(1); // Remove the '#'
     if (hash) {
+        console.log("Navigating to hash:", hash);
         navigateToPath(root, hash, svg.append("g"));
     } else {
+        console.log("Rendering root");
         svg.append("g").call(render, root);
     }
     
@@ -48,6 +55,10 @@ d3.json("./map/root.json").then(function (data) {
     window.addEventListener('popstate', function(event) {
         // Clear existing SVG content
         svg.selectAll("g").remove();
+        
+        // Reset domain to identity mapping for fresh render
+        x.domain([0, width]);
+        y.domain([0, height]);
         
         // Get the hash and navigate using the same logic as initial load
         const newHash = window.location.hash.slice(1);
@@ -60,13 +71,15 @@ d3.json("./map/root.json").then(function (data) {
             svg.append("g").call(render, newRoot);
         }
     });
-})
+}).catch(function(error) {
+    console.error("Error loading data:", error);
+});
 
 function treemap(data)
 {
-    tm = d3.treemap().tile(tile)
-    res = tm(d3.hierarchy(data).sum(d => d.value))
-    return res
+    const tm = d3.treemap().tile(tile).size([width, height]);
+    const res = tm(d3.hierarchy(data).sum(d => d.value));
+    return res;
 }
 
 // Helper function to process children after preTile calculation
@@ -104,6 +117,7 @@ function tile(node, x0, y0, x1, y1) {
 const preTile = function(parent, x0, y0, x1, y1) {
     var nodes = parent.children,
         i, n = nodes.length,
+        sum,
         sums = new Array(n + 1);
   
     for (sums[0] = sum = i = 0; i < n; ++i) {
@@ -186,6 +200,9 @@ function getNodePath(d) {
 // group: the SVG group to render into
 function navigateToPath(root, path, group) {
     if (!path) {
+        // No path, render root with identity domain
+        x.domain([0, width]);
+        y.domain([0, height]);
         group.call(render, root);
         return;
     }
@@ -206,6 +223,9 @@ function navigateToPath(root, path, group) {
                 const newRoot = treemap(currentNode.data);
                 // Restore parent reference to maintain breadcrumb path
                 newRoot.parent = currentNode.parent;
+                // Use identity domain for fresh render
+                x.domain([0, width]);
+                y.domain([0, height]);
                 group.call(render, newRoot);
             }
             return;
@@ -218,6 +238,8 @@ function navigateToPath(root, path, group) {
             // No children available, rebuild and render what we have
             const newRoot = treemap(currentNode.data);
             newRoot.parent = currentNode.parent;
+            x.domain([0, width]);
+            y.domain([0, height]);
             group.call(render, newRoot);
             return;
         }
@@ -230,6 +252,8 @@ function navigateToPath(root, path, group) {
             // Target not found, rebuild and render what we have
             const newRoot = treemap(currentNode.data);
             newRoot.parent = currentNode.parent;
+            x.domain([0, width]);
+            y.domain([0, height]);
             group.call(render, newRoot);
             return;
         }
@@ -282,6 +306,9 @@ function navigateToPath(root, path, group) {
             const newRoot = treemap(node.data);
             // Restore parent reference to maintain breadcrumb path
             newRoot.parent = node.parent;
+            // Use identity domain for fresh render
+            x.domain([0, width]);
+            y.domain([0, height]);
             group.call(render, newRoot);
         });
     }
@@ -316,11 +343,29 @@ function pick_content(d) {
 function position(group, root) {
     const res = group
         .selectAll("g")
-            .attr("transform", d => d === root ? `translate(0,-${header_height})` : `translate(${x(d.x0)},${y(d.y0)})`)
+            .attr("transform", d => {
+                const transform = d === root ? `translate(0,-${header_height})` : `translate(${x(d.x0)},${y(d.y0)})`;
+                if (d !== root) {
+                    console.log("Positioning node:", d.data.name || d.data.text?.[0]?.substring(0,30), 
+                                "coords:", d.x0, d.y0, d.x1, d.y1,
+                                "transform:", transform);
+                }
+                return transform;
+            })
         .select("rect")
-            .attr("width", d => d === root ? width : x(d.x1) - x(d.x0))
+            .attr("width", d => {
+                const w = d === root ? width : x(d.x1) - x(d.x0);
+                if (d !== root) {
+                    console.log("Rect width:", w, "for", d.data.name || "unnamed");
+                }
+                return w;
+            })
             .attr("height", d => {
-                return d === root ? header_height : y(d.y1) - y(d.y0)
+                const h = d === root ? header_height : y(d.y1) - y(d.y0);
+                if (d !== root) {
+                    console.log("Rect height:", h, "for", d.data.name || "unnamed");
+                }
+                return h;
             });
         
     return res;
@@ -335,11 +380,13 @@ function fit_content(group, root) {
 }
 
 function render(group, root) {
+    console.log("render called with root:", root, "children:", root.children);
     const node = group
       .selectAll("g")
-      .filter(() => this.parentNode === root.node())
-      .data([root].concat(root.children))
-      .join("g")
+      .data([root].concat(root.children || []))
+      .join("g");
+    
+    console.log("Nodes created:", node.size());
 
     node.filter(d => d === root ? d.parent : (d.children || d.data.children_file))
         .on("click", d => d === root ? zoomout(group, root) : zoomin(group, d))
@@ -373,8 +420,8 @@ function render(group, root) {
         })
         .append('div')
     
-    var content_classes = {}
-    content_divs = div.filter(d => d !== root)
+    var content_classes = {};
+    var content_divs = div.filter(d => d !== root);
     content_divs.each((d, i) => {
         console.log(d)
         var cs = ["content"]
@@ -390,7 +437,7 @@ function render(group, root) {
     })
     content_divs.attr("class", (d,i) => content_classes[hash(d,i)].join(" "))
 
-    header_div = div.filter(d => d === root)
+    var header_div = div.filter(d => d === root)
         .attr("class", d => d.parent ? "clickable header" : "header");
 
     header_div.selectAll("a")
@@ -399,14 +446,14 @@ function render(group, root) {
         .html(d => d)
     
     // Add images (which need to be resized afterwards via resize_img)    
-    image_divs = content_divs.filter(d => d.data.img)
+    var image_divs = content_divs.filter(d => d.data.img);
     image_divs.append("div")
         .attr("style", d => `background-image: url(${d.data.img})`)
         .attr("class", d => d.data.paper ? "img paper" : "img photo")
         .html(d => d.data.paper ? `<a class='paper' href='${d.data.paper}'> </a>` : ``)
     
     // Add paragraphs with name and text
-    text_divs = content_divs.filter(d => d.data.name)
+    var text_divs = content_divs.filter(d => d.data.name);
     text_divs.selectAll("h3")
         .data(d => [d.data.name])
         .join("h3")
@@ -417,7 +464,7 @@ function render(group, root) {
         .html(d => d)
 
     // Add paragraphs without name and with text
-    text_only_divs = content_divs.filter(d => d.data.text)
+    var text_only_divs = content_divs.filter(d => d.data.text);
     text_only_divs.selectAll("p")
         .data(d => pick_content(d.data))
         .join("p")
@@ -516,24 +563,21 @@ function doZoomIn(group, d) {
 
 // When zooming out, draw the old nodes on top, and fade them out.
 function zoomout(group, d) {
-    // If coming from a hash-rendered root, parent may not have viewport coords.
-    // Rebuild parent as a fresh treemap root (viewport [0,width]x[0,height]).
-    let parentRoot = d.parent;
-    if (parentRoot && (parentRoot.x0 === undefined || parentRoot.x1 === undefined)) {
-        parentRoot = treemap(parentRoot.data);
-        // Preserve grandparent for breadcrumbs
-        parentRoot.parent = d.parent.parent;
+    // If parent doesn't have children (direct navigation case), rebuild it
+    if (d.parent && (!d.parent.children || d.parent.children.length === 0)) {
+        const parentWithChildren = treemap(d.parent.data);
+        parentWithChildren.parent = d.parent.parent;
+        d.parent = parentWithChildren;
     }
-
+    
     const group0 = group.attr("pointer-events", "none");
-    const group1 = group = svg.insert("g", "*").call(render, parentRoot);
-
-    // Animate to full viewport of the parent root
-    x.domain([parentRoot.x0, parentRoot.x1]);
-    y.domain([parentRoot.y0, parentRoot.y1]);
+    const group1 = group = svg.insert("g", "*").call(render, d.parent);
+    
+    x.domain([d.parent.x0, d.parent.x1]);
+    y.domain([d.parent.y0, d.parent.y1]);
 
     // Update URL hash
-    const path = getNodePath(parentRoot);
+    const path = getNodePath(d.parent);
     if (path) {
         history.pushState(null, '', '#' + path);
     } else {
@@ -550,9 +594,9 @@ function zoomout(group, d) {
                 .call(position, d))
         .call(t => 
                 group1
-                .call(fit_content, parentRoot)
+                .call(fit_content, d.parent)
                 .style("opacity", 0)
                 .transition(t)
                 .style("opacity", 1)
-                .call(position, parentRoot));
+                .call(position, d.parent));
 }
