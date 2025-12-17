@@ -2,7 +2,7 @@
     "name": "Arshavir's Page",
     "children": [
         {
-            "value": 160,
+            "value": 165,
             "text": [
                 "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
                 "I am a software engineer and researcher.",
@@ -26,7 +26,7 @@
                         "<small><code>Apr&nbsp;2023</code></small> 📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
                         "<small><code>Nov&nbsp;2021</code></small> 🏢 I joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are provably secure and reliable.",
                         "<small><code>Oct&nbsp;2021</code></small> 🎓 I completed my doctoral thesis: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
-                        "<!--📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>.-->"
+                        "<small><code>May&nbsp;2021</code></small> 📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
                     ],
                     "value": 1
                 }
@@ -40,16 +40,16 @@
         {
             "name": "Collaboration",
             "text": [
-                "I'm interested in tech-1<sup>st</sup> organizations whose mission is beyond (just) making profit.",
-                "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please apply here."
+                "I'm interested in tech-first organizations whose mission is beyond (just) making profit.",
+                "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please tap here."
             ],
-            "value": 100,
+            "value": 60,
             "children_file": "map/apply.json"
         },
         {
             "name": "Links to my talks",
             "text": "",
-            "value": 15,
+            "value": 17,
             "children_file": "map/talks.json"
         },
         {
@@ -63,12 +63,12 @@
         {
             "name": "More from my Ph.D.",
             "text": "",
-            "value": 50,
+            "value": 60,
             "children_file": "map/phd.json"
         },
         {
             "name": "Get in touch",
-            "value": 35,
+            "value": 37,
             "text": [
                 "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
                 "Parkweg 8<br>8134 Zurich<br>Switzerland"

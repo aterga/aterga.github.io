@@ -22,5 +22,13 @@
             "👉 <a href='mailto:tergabrielyan+collaboration@gmail.com?subject=Opportunity to work with you [v1]'><b>[ Start here ]</b></a>"
         ],
         "value": 100
+    },
+    {
+        "name": "Get in touch",
+        "value": 75,
+        "text": [
+            "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
+            "Parkweg 8<br>8134 Zurich<br>Switzerland"
+        ]
     }
 ]
