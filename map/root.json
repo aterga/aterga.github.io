@@ -2,7 +2,7 @@
     "name": "Arshavir's Page",
     "children": [
         {
-            "value": 135,
+            "value": 125,
             "text": [
                 "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
                 "I am a software engineer and researcher.",
@@ -30,18 +30,27 @@
             "value": 40
         },
         {
-            "name": "Contacts",
-            "value": 20,
+            "name": "Collaboration",
             "text": [
-                "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
-                "Parkweg 8<br>8134 Zurich<br>Switzerland"
-            ]
+                "I'm interested in tech-1<sup>st</sup> organizations whose mission is beyond (just) making profit.",
+                "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please apply here."
+            ],
+            "value": 35,
+            "children_file": "map/apply.json"
         },
         {
             "name": "Links to my talks",
             "text": "",
-            "value": 15,
+            "value": 10,
             "children_file": "map/talks.json"
+        },
+        {
+            "name": "Selected Publications",
+            "text": [
+                ""
+            ],
+            "children_file": "map/papers.json",
+            "value": 15
         },
         {
             "name": "More from my Ph.D.",
@@ -50,12 +59,12 @@
             "children_file": "map/phd.json"
         },
         {
-            "name": "Selected Publications",
+            "name": "Get in touch",
+            "value": 20,
             "text": [
-                ""
-            ],
-            "children_file": "map/papers.json",
-            "value": 13
+                "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
+                "Parkweg 8<br>8134 Zurich<br>Switzerland"
+            ]
         }
     ]
 }
