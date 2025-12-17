@@ -32,10 +32,8 @@ var svg = d3.select('.main').append('svg')
 let rootData = null; // Store root data for browser navigation
 
 d3.json("./map/root.json").then(function (data) {
-    console.log("Data loaded successfully:", data);
     rootData = data; // Save for later use
     const root = treemap(data);
-    console.log("Treemap created:", root);
     
     // Set initial domain to identity mapping (treemap creates coords from 0 to width/height)
     x.domain([0, width]);
@@ -44,10 +42,8 @@ d3.json("./map/root.json").then(function (data) {
     // Check if there's a hash in the URL to navigate to
     const hash = window.location.hash.slice(1); // Remove the '#'
     if (hash) {
-        console.log("Navigating to hash:", hash);
         navigateToPath(root, hash, svg.append("g"));
     } else {
-        console.log("Rendering root");
         svg.append("g").call(render, root);
     }
     
@@ -196,7 +192,7 @@ function getNodePath(d) {
 
 // Navigate to a specific path in the tree based on URL hash
 // path: URL hash like "more-from-my-phd/student-projects"
-// root: the root node of the tree
+// root: the root node of the tree (full tree with all coordinates)
 // group: the SVG group to render into
 function navigateToPath(root, path, group) {
     if (!path) {
@@ -219,10 +215,11 @@ function navigateToPath(root, path, group) {
             if (currentNode.data.children_file && !currentNode.children) {
                 loadChildrenAndRender(currentNode);
             } else {
-                // Rebuild treemap with this node as root and render
+                // Render this node as root, preserving parent reference for breadcrumb and zoomout
                 const newRoot = treemap(currentNode.data);
-                // Restore parent reference to maintain breadcrumb path
+                // currentNode.parent has coordinates from the full tree
                 newRoot.parent = currentNode.parent;
+                
                 // Use identity domain for fresh render
                 x.domain([0, width]);
                 y.domain([0, height]);
@@ -304,8 +301,9 @@ function navigateToPath(root, path, group) {
             
             // Rebuild treemap with loaded data
             const newRoot = treemap(node.data);
-            // Restore parent reference to maintain breadcrumb path
+            // Preserve parent reference from original navigation
             newRoot.parent = node.parent;
+            
             // Use identity domain for fresh render
             x.domain([0, width]);
             y.domain([0, height]);
@@ -343,30 +341,10 @@ function pick_content(d) {
 function position(group, root) {
     const res = group
         .selectAll("g")
-            .attr("transform", d => {
-                const transform = d === root ? `translate(0,-${header_height})` : `translate(${x(d.x0)},${y(d.y0)})`;
-                if (d !== root) {
-                    console.log("Positioning node:", d.data.name || d.data.text?.[0]?.substring(0,30), 
-                                "coords:", d.x0, d.y0, d.x1, d.y1,
-                                "transform:", transform);
-                }
-                return transform;
-            })
+            .attr("transform", d => d === root ? `translate(0,-${header_height})` : `translate(${x(d.x0)},${y(d.y0)})`)
         .select("rect")
-            .attr("width", d => {
-                const w = d === root ? width : x(d.x1) - x(d.x0);
-                if (d !== root) {
-                    console.log("Rect width:", w, "for", d.data.name || "unnamed");
-                }
-                return w;
-            })
-            .attr("height", d => {
-                const h = d === root ? header_height : y(d.y1) - y(d.y0);
-                if (d !== root) {
-                    console.log("Rect height:", h, "for", d.data.name || "unnamed");
-                }
-                return h;
-            });
+            .attr("width", d => d === root ? width : x(d.x1) - x(d.x0))
+            .attr("height", d => d === root ? header_height : y(d.y1) - y(d.y0));
         
     return res;
 }
@@ -380,13 +358,10 @@ function fit_content(group, root) {
 }
 
 function render(group, root) {
-    console.log("render called with root:", root, "children:", root.children);
     const node = group
       .selectAll("g")
       .data([root].concat(root.children || []))
       .join("g");
-    
-    console.log("Nodes created:", node.size());
 
     node.filter(d => d === root ? d.parent : (d.children || d.data.children_file))
         .on("click", d => d === root ? zoomout(group, root) : zoomin(group, d))
@@ -420,10 +395,9 @@ function render(group, root) {
         })
         .append('div')
     
-    var content_classes = {};
+    var content_classes = {}
     var content_divs = div.filter(d => d !== root);
     content_divs.each((d, i) => {
-        console.log(d)
         var cs = ["content"]
         if (d.is_north) cs.push("north")
         if (d.is_east) cs.push("east")
@@ -432,8 +406,6 @@ function render(group, root) {
         if (d.data.img) cs.push("img-holder")
         if (d.children || d.data.children_file) cs.push("clickable")
         content_classes[hash(d,i)] = cs
-        // console.log(cs)
-        // console.log(JSON.parse(JSON.stringify(content_classes)))
     })
     content_divs.attr("class", (d,i) => content_classes[hash(d,i)].join(" "))
 
@@ -563,8 +535,28 @@ function doZoomIn(group, d) {
 
 // When zooming out, draw the old nodes on top, and fade them out.
 function zoomout(group, d) {
-    // If parent doesn't have children (direct navigation case), rebuild it
-    if (d.parent && (!d.parent.children || d.parent.children.length === 0)) {
+    // Check if parent has incorrect full-screen coordinates when it shouldn't be root
+    // (This happens after URL navigation when intermediate nodes get rebuilt as full-screen)
+    const parentIsFullScreen = d.parent && 
+                               d.parent.x0 === 0 && d.parent.y0 === 0 && 
+                               d.parent.x1 === width && d.parent.y1 === height;
+    const parentHasParent = d.parent && d.parent.parent;
+    
+    if (parentIsFullScreen && parentHasParent) {
+        // Rebuild from grandparent to get correct parent coordinates
+        const grandparent = treemap(d.parent.parent.data);
+        grandparent.parent = d.parent.parent.parent;
+        
+        // Find the parent within the rebuilt grandparent
+        const rebuiltParent = grandparent.children?.find(
+            child => child.data.name === d.parent.data.name
+        );
+        
+        if (rebuiltParent) {
+            d.parent = rebuiltParent;
+        }
+    } else if (d.parent && (!d.parent.children || d.parent.children.length === 0)) {
+        // If parent doesn't have children (direct navigation case), rebuild it
         const parentWithChildren = treemap(d.parent.data);
         parentWithChildren.parent = d.parent.parent;
         d.parent = parentWithChildren;
