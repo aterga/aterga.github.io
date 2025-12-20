@@ -132,27 +132,26 @@ h3 {
   content: "Read more...";
   color: royalblue;
 }
+.expanding-frame > .img-holder::after {
+  content: "" !important;
+}
 g.hover .expanding-frame > .content::after {
   color: rgb(44, 75, 167);
 }
 .clickable {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-g.hover .expanding-frame {
+g.hover .expanding-frame:not(:has(.img)) {
   overflow: visible;
-  /* display: inline-block; */
-  /* position: relative; */
 }
-g.hover .expanding-frame .clickable.content {
+g.hover .expanding-frame:not(:has(.img)) .clickable.content {
   display: inline-block;
   width: calc(100% - 30px);
   height: calc(100% - 30px);
   margin: 26px 26px 0 -4px;
   padding: 4px 4px 0 4px;
   background-color: rgb(91%,96%,100%);
-  /* border-top: 30px solid red; */
-  /* border-right: 30px solid red; */
   color: royalblue;
 }
 

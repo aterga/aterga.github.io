@@ -47,13 +47,13 @@
       "children_file": "map/apply.json"
     },
     {
-      "name": "Links to my talks",
+      "name": "Talks",
       "text": "",
       "value": 20,
       "children_file": "map/talks.json"
     },
     {
-      "name": "Selected Publications",
+      "name": "Publications",
       "text": [
         ""
       ],
@@ -62,7 +62,7 @@
     },
     {
       "name": "Photography",
-      "text": "Impressions from previous years & more.",
+      "text": "Impressions from previous years.",
       "children_file": "map/photography.json",
       "value": 20
     },

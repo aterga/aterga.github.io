@@ -1893,24 +1893,32 @@ function hash(d, i) {
 }
 
 function name(d) {
-    return d.ancestors().reverse().map(d => d.data.name).join(" <span class='arrow'>&#10230;</span> ")
+    return d.ancestors().reverse()
+        .filter(d => d.data.name) // Only include nodes with names
+        .map(d => d.data.name)
+        .join(" <span class='arrow'>&#10230;</span> ")
 }
 
 // Convert node name to URL-friendly slug
 function nameToSlug(name) {
     if (!name) return '';
-    return name.toLowerCase()
+    const slug = name.toLowerCase()
         .replace(/[^\w\s-]/g, '') // Remove special characters
         .replace(/\s+/g, '-')      // Replace spaces with hyphens
         .replace(/--+/g, '-')      // Replace multiple hyphens with single hyphen
         .trim();
+    // If slug ends up empty after processing, return a fallback
+    return slug || 'unnamed';
 }
 
 // Get URL hash path from node (e.g., "links-to-my-talks")
 function getNodePath(d) {
     const ancestors = d.ancestors().reverse().slice(1); // Skip root "Arshavir's Page"
     if (ancestors.length === 0) return '';
-    return ancestors.map(node => nameToSlug(node.data.name)).join('/');
+    return ancestors.map(node => {
+        const slug = nameToSlug(node.data.name);
+        return slug || 'unnamed';
+    }).join('/');
 }
 
 // Navigate to a specific path in the tree based on URL hash
