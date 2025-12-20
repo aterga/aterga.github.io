@@ -1,78 +1,84 @@
 {
-    "name": "Arshavir's Page",
-    "children": [
+  "name": "Arshavir's Page",
+  "children": [
+    {
+      "value": 165,
+      "text": [
+        "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
+        "I am a software engineer and researcher.",
+        "I recently joined the Identity team at the DFINITY Foundation, where I focus on scaling <a href='https://id.ai'>Internet Identity</a>, a state-of-the-art trustless authentication service.",
+        "Priorly, I was the lead engineer for the <a href='https://dashboard.internetcomputer.org/sns'>Service Nervous System</a> (SNS), a turnkey blockchain framework for launching and operating decentralized autonomous organizations.",
+        "I obtained my doctoral degree from Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My academic research was focused on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
+        "Before joining ETH, I was a Research Scientist at Intel's Strategic CAD Lab, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations, and have designed a novel optimization for an explicitly parallel computer architecture."
+      ]
+    },
+    {
+      "name": "News!",
+      "text": [
+        "<small><code>Aug&nbsp;2025</code></small> 🪪 I'm on the mission to scale <a href='https://id.ai'>id.ai</a> to millions of users.",
+        "<small><code>Apr&nbsp;2024</code></small> 🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>! I'm currently working on <i>Matched Funding</i>, a smart contract for allocating funds during decentralization token swaps."
+      ],
+      "children": [
         {
-            "value": 165,
-            "text": [
-                "<i>I condemn the invasion of my motherland Russia into Ukraine and the attacks of Azerbaijan on my fatherland Armenia.</i>",
-                "I am a software engineer and researcher.",
-                "I recently joined the Identity team at the DFINITY Foundation, where I focus on scaling <a href='https://id.ai'>Internet Identity</a>, a state-of-the-art trustless authentication service.",
-                "Priorly, I was the lead engineer for the <a href='https://dashboard.internetcomputer.org/sns'>Service Nervous System</a> (SNS), a turnkey blockchain framework for launching and operating decentralized autonomous organizations.",
-                "I obtained my doctoral degree from Prof.~Peter~Müller's <a href='https://www.pm.inf.ethz.ch'>Programming Methodology Group</a> at ETH~Zurich. My academic research was focused on developing scalable and precise automated formal reasoning techniques and programmer-friendly tools for formal verification.",
-                "Before joining ETH, I was a Research Scientist at Intel's Strategic CAD Lab, developing tools for automatic power & performance debugging in mobile systems. I also worked on compilers, applying machine learning for automatically tuning compiler optimizations, and have designed a novel optimization for an explicitly parallel computer architecture."
-            ]
-        },
-        {
-            "name": "News!",
-            "text": [
-                "<small><code>Aug&nbsp;2025</code></small> 🪪 I'm on the mission to scale <a href='https://id.ai'>id.ai</a> to millions of users.",
-                "<small><code>Apr&nbsp;2024</code></small> 🧠 I'm excited to have joined the team responsible for the Internet Computer's <a href='https://internetcomputer.org/nns'>Network Nervous System</a>! I'm currently working on <i>Matched Funding</i>, a smart contract for allocating funds during decentralization token swaps."
-            ],
-            "children": [
-                {
-                    "name": "",
-                    "text": [
-                        "<small><code>Nov&nbsp;2023</code></small> 📜 Our study on large-scale policy monitoring called <a href='docs/monitoring-the-internet-computer-fm-23.pdf'>Monitoring the Internet Computer</a> has been <a href='https://dl.acm.org/doi/abs/10.1007/978-3-031-27481-7_22'>accepted and appeared</a> at Formal Methods 2023.",
-                        "<small><code>Apr&nbsp;2023</code></small> 📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
-                        "<small><code>Nov&nbsp;2021</code></small> 🏢 I joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are provably secure and reliable.",
-                        "<small><code>Oct&nbsp;2021</code></small> 🎓 I completed my doctoral thesis: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
-                        "<small><code>May&nbsp;2021</code></small> 📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
-                    ],
-                    "value": 1
-                }
-            ],
-            "value": 95
-        },
-        {
-            "img": "img/arshavir-small.jpg",
-            "value": 80
-        },
-        {
-            "name": "Collaboration",
-            "text": [
-                "I'm interested in tech-first organizations whose mission is beyond (just) making profit.",
-                "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please tap here."
-            ],
-            "value": 60,
-            "children_file": "map/apply.json"
-        },
-        {
-            "name": "Links to my talks",
-            "text": "",
-            "value": 17,
-            "children_file": "map/talks.json"
-        },
-        {
-            "name": "Selected Publications",
-            "text": [
-                ""
-            ],
-            "children_file": "map/papers.json",
-            "value": 17
-        },
-        {
-            "name": "More from my Ph.D.",
-            "text": "",
-            "value": 60,
-            "children_file": "map/phd.json"
-        },
-        {
-            "name": "Get in touch",
-            "value": 37,
-            "text": [
-                "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
-                "Parkweg 8<br>8134 Zurich<br>Switzerland"
-            ]
+          "name": "",
+          "text": [
+            "<small><code>Nov&nbsp;2023</code></small> 📜 Our study on large-scale policy monitoring called <a href='docs/monitoring-the-internet-computer-fm-23.pdf'>Monitoring the Internet Computer</a> has been <a href='https://dl.acm.org/doi/abs/10.1007/978-3-031-27481-7_22'>accepted and appeared</a> at Formal Methods 2023.",
+            "<small><code>Apr&nbsp;2023</code></small> 📜 Our paper <a href='https://dl.acm.org/doi/pdf/10.1145/3571748'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers (extended version)</a> has been invited to be published in <i>Formal Aspects of Computing</i>!",
+            "<small><code>Nov&nbsp;2021</code></small> 🏢 I joined the <a href='https://dfinity.org/'>DFINITY Foundation</a> with a mission to ensure the Internet Computer (and the distributed apps that it runs) are provably secure and reliable.",
+            "<small><code>Oct&nbsp;2021</code></small> 🎓 I completed my doctoral thesis: <a href='http://pm.inf.ethz.ch/publications/getpdf.php?bibname=Own&id=TerGabrielyan2021.pdf'>Compositional Verification of Rich Program Properties in Separation Logic</a>. The thesis consists of three parts. Part~I presents a technique for compositional reasoning about <i>set~comprehensions</i>~— aggregation expressions over heap-based data structures. Part~II extends this setting to compositional reasoning about <i>local reachability</i> properties of heap-manipulating programs. Part~III develops an automatic <i>verification debugging</i> technique that lifts SMT models to counterexample heap diagrams.",
+            "<small><code>May&nbsp;2021</code></small> 📜 Check out our <b>FM'21 paper</b> titled <a href='https://arxiv.org/abs/2105.04385'>Identifying Overly Restrictive Matching Patterns in SMT-based Program Verifiers</a>. This work develops the idea of generating <i>triggering terms</i> for mitigating incompleteness in tools like <a href='https://github.com/viperproject'>Viper</a> and <a href='https://github.com/dafny-lang/dafny'>Dafny</a>."
+          ],
+          "value": 1
         }
-    ]
+      ],
+      "value": 79
+    },
+    {
+      "img": "img/arshavir-small.jpg",
+      "value": 80
+    },
+    {
+      "name": "Collaboration",
+      "text": [
+        "I'm interested in tech-first organizations whose mission is beyond (just) making profit.",
+        "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please tap here."
+      ],
+      "value": 50,
+      "children_file": "map/apply.json"
+    },
+    {
+      "name": "Links to my talks",
+      "text": "",
+      "value": 20,
+      "children_file": "map/talks.json"
+    },
+    {
+      "name": "Selected Publications",
+      "text": [
+        ""
+      ],
+      "children_file": "map/papers.json",
+      "value": 20
+    },
+    {
+      "name": "Photography",
+      "text": "Impressions from previous years & more.",
+      "children_file": "map/photography.json",
+      "value": 20
+    },
+    {
+      "name": "More from my Ph.D.",
+      "text": "",
+      "value": 20,
+      "children_file": "map/phd.json"
+    },
+    {
+      "name": "Get in touch",
+      "value": 40,
+      "text": [
+        "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
+        "Parkweg 8<br>8134 Zurich<br>Switzerland"
+      ]
+    }
+  ]
 }

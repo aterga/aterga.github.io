@@ -26,6 +26,13 @@ const __featureFlags = {
                 toggleWeightLabels(false);
                 // Remove overflow highlighting
                 highlightOverflowNodes();
+                // Hide changes panel
+                const changesPanel = document.getElementById('changes-panel');
+                if (changesPanel) {
+                    changesPanel.remove();
+                }
+                // Reload page to remove all click handlers
+                window.location.reload();
             }
         }
     }
@@ -39,63 +46,141 @@ function showControlButtons() {
         return;
     }
 
-    // Create container
+    // Create container as left panel
     const container = document.createElement('div');
     container.id = 'weight-controls';
     container.className = 'weight-controls';
+    container.style.position = 'fixed';
+    container.style.left = '0';
+    container.style.top = '0';
+    container.style.width = '220px';
+    container.style.height = '100vh';
+    container.style.background = 'rgba(51, 51, 51, 0.95)';
+    container.style.borderRight = '2px solid #444';
+    container.style.boxShadow = '2px 0 10px rgba(0, 0, 0, 0.2)';
+    container.style.zIndex = '9999';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.padding = '20px 15px';
+    container.style.gap = '15px';
+    container.style.overflowY = 'auto';
+    container.style.boxSizing = 'border-box';
 
-    // Create multiply input and button
-    const multiplyLabel = document.createElement('span');
+    // Add title
+    const title = document.createElement('div');
+    title.textContent = 'Edit Controls';
+    title.style.color = 'white';
+    title.style.fontSize = '18px';
+    title.style.fontWeight = 'bold';
+    title.style.marginBottom = '10px';
+    title.style.paddingBottom = '10px';
+    title.style.borderBottom = '2px solid #555';
+    container.appendChild(title);
+
+    // Create multiply section
+    const multiplySection = document.createElement('div');
+    multiplySection.style.display = 'flex';
+    multiplySection.style.flexDirection = 'column';
+    multiplySection.style.gap = '8px';
+
+    const multiplyLabel = document.createElement('label');
     multiplyLabel.textContent = 'Multiply all by:';
     multiplyLabel.style.color = 'white';
     multiplyLabel.style.fontWeight = 'bold';
-    multiplyLabel.style.marginRight = '5px';
+    multiplyLabel.style.fontSize = '14px';
 
     const multiplyInput = document.createElement('input');
     multiplyInput.id = 'multiply-factor-input';
     multiplyInput.type = 'number';
     multiplyInput.step = '0.1';
     multiplyInput.value = '1.0';
-    multiplyInput.style.width = '60px';
+    multiplyInput.style.width = '100%';
     multiplyInput.style.padding = '8px';
     multiplyInput.style.fontSize = '14px';
     multiplyInput.style.borderRadius = '4px';
     multiplyInput.style.border = '1px solid #ccc';
+    multiplyInput.style.boxSizing = 'border-box';
 
     const multiplyBtn = document.createElement('button');
     multiplyBtn.id = 'multiply-weights-btn';
     multiplyBtn.className = 'control-btn';
     multiplyBtn.textContent = 'Apply';
+    multiplyBtn.style.width = '100%';
     multiplyBtn.addEventListener('click', function () {
         multiplyAllWeights();
     });
 
-    // Create Reset button
-    const resetBtn = document.createElement('button');
-    resetBtn.id = 'reset-weights-btn';
-    resetBtn.className = 'control-btn';
-    resetBtn.textContent = 'Reset Weights';
-    resetBtn.addEventListener('click', function () {
-        if (confirm('Reset all weights to original values from root.json? This will clear your modifications.')) {
-            clearModifiedData();
-            window.location.reload();
-        }
+    multiplySection.appendChild(multiplyLabel);
+    multiplySection.appendChild(multiplyInput);
+    multiplySection.appendChild(multiplyBtn);
+    container.appendChild(multiplySection);
+
+    // Create New Node button
+    const newNodeBtn = document.createElement('button');
+    newNodeBtn.id = 'new-node-btn';
+    newNodeBtn.className = 'control-btn';
+    newNodeBtn.textContent = '+ New Node';
+    newNodeBtn.style.width = '100%';
+    newNodeBtn.style.backgroundColor = '#FF9800';
+    newNodeBtn.addEventListener('click', function () {
+        createNewNode();
     });
+    newNodeBtn.addEventListener('mouseover', function () {
+        this.style.backgroundColor = '#F57C00';
+    });
+    newNodeBtn.addEventListener('mouseout', function () {
+        this.style.backgroundColor = '#FF9800';
+    });
+    container.appendChild(newNodeBtn);
+
+    // Spacer
+    const spacer = document.createElement('div');
+    spacer.style.flex = '1';
+    container.appendChild(spacer);
 
     // Create Save button
     const saveBtn = document.createElement('button');
     saveBtn.id = 'save-weights-btn';
     saveBtn.className = 'control-btn';
     saveBtn.textContent = 'Save to File';
+    saveBtn.style.width = '100%';
     saveBtn.addEventListener('click', function () {
         saveCurrentViewToFile();
     });
-
-    container.appendChild(multiplyLabel);
-    container.appendChild(multiplyInput);
-    container.appendChild(multiplyBtn);
-    container.appendChild(resetBtn);
     container.appendChild(saveBtn);
+
+    // Create Exit Edit Mode button
+    const exitBtn = document.createElement('button');
+    exitBtn.id = 'exit-edit-mode-btn';
+    exitBtn.className = 'control-btn';
+    exitBtn.textContent = 'Exit Edit Mode';
+    exitBtn.style.width = '100%';
+    exitBtn.style.backgroundColor = '#9C27B0';
+    exitBtn.addEventListener('click', function () {
+        __featureFlags.EDIT_MODE.set(false);
+    });
+    exitBtn.addEventListener('mouseover', function () {
+        this.style.backgroundColor = '#7B1FA2';
+    });
+    exitBtn.addEventListener('mouseout', function () {
+        this.style.backgroundColor = '#9C27B0';
+    });
+    container.appendChild(exitBtn);
+
+    // Create Reset button
+    const resetBtn = document.createElement('button');
+    resetBtn.id = 'reset-weights-btn';
+    resetBtn.className = 'control-btn';
+    resetBtn.textContent = 'Reset All';
+    resetBtn.style.width = '100%';
+    resetBtn.addEventListener('click', function () {
+        if (confirm('Reset all weights to original values from root.json? This will clear your modifications.')) {
+            clearModifiedData();
+            window.location.reload();
+        }
+    });
+    container.appendChild(resetBtn);
+
     document.body.appendChild(container);
 }
 
@@ -111,7 +196,187 @@ function hideControlButtons() {
 function saveModifiedData() {
     if (rootData) {
         localStorage.setItem('modifiedTreeData', JSON.stringify(rootData));
+        updateChangesPanel();
     }
+}
+
+// Create the changes panel
+function createChangesPanel() {
+    if (document.getElementById('changes-panel')) return;
+    
+    const panel = document.createElement('div');
+    panel.id = 'changes-panel';
+    panel.style.position = 'fixed';
+    panel.style.right = '0';
+    panel.style.top = '0';
+    panel.style.width = '300px';
+    panel.style.height = '100vh';
+    panel.style.background = 'rgba(255, 255, 255, 0.95)';
+    panel.style.borderLeft = '2px solid #333';
+    panel.style.boxShadow = '-2px 0 10px rgba(0, 0, 0, 0.2)';
+    panel.style.zIndex = '9999';
+    panel.style.display = 'flex';
+    panel.style.flexDirection = 'column';
+    panel.style.overflow = 'hidden';
+    
+    // Header
+    const header = document.createElement('div');
+    header.style.padding = '15px';
+    header.style.background = '#333';
+    header.style.color = 'white';
+    header.style.fontWeight = 'bold';
+    header.style.fontSize = '16px';
+    header.style.display = 'flex';
+    header.style.justifyContent = 'space-between';
+    header.style.alignItems = 'center';
+    
+    const title = document.createElement('span');
+    title.textContent = 'Unsaved Changes';
+    header.appendChild(title);
+    
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '×';
+    closeBtn.style.background = 'transparent';
+    closeBtn.style.border = 'none';
+    closeBtn.style.color = 'white';
+    closeBtn.style.fontSize = '24px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.padding = '0';
+    closeBtn.style.width = '30px';
+    closeBtn.style.height = '30px';
+    closeBtn.addEventListener('click', () => panel.remove());
+    header.appendChild(closeBtn);
+    
+    panel.appendChild(header);
+    
+    // Content area
+    const content = document.createElement('div');
+    content.id = 'changes-panel-content';
+    content.style.flex = '1';
+    content.style.overflowY = 'auto';
+    content.style.padding = '15px';
+    content.style.fontSize = '13px';
+    content.style.lineHeight = '1.6';
+    panel.appendChild(content);
+    
+    document.body.appendChild(panel);
+}
+
+// Update the changes panel with current modifications
+function updateChangesPanel() {
+    const panel = document.getElementById('changes-panel');
+    if (!panel) return;
+    
+    const content = document.getElementById('changes-panel-content');
+    if (!content) return;
+    
+    // Compare current rootData with original from root.json
+    const originalData = localStorage.getItem('originalTreeData');
+    if (!originalData) {
+        content.innerHTML = '<p style="color: #999; font-style: italic;">No original data to compare</p>';
+        return;
+    }
+    
+    const original = JSON.parse(originalData);
+    const changes = findChanges(original, rootData, []);
+    
+    if (changes.length === 0) {
+        content.innerHTML = '<p style="color: #999; font-style: italic;">No changes detected</p>';
+        return;
+    }
+    
+    // Display changes
+    let html = '<div style="font-size: 12px; color: #666; margin-bottom: 10px;">' + 
+               `${changes.length} change${changes.length > 1 ? 's' : ''} detected</div>`;
+    
+    changes.forEach(change => {
+        html += '<div style="margin-bottom: 12px; padding: 10px; background: #f5f5f5; border-radius: 4px; border-left: 3px solid #2196F3;">';
+        html += `<div style="font-weight: bold; color: #333; margin-bottom: 5px;">${escapeHtml(change.path)}</div>`;
+        html += `<div style="color: #666; font-size: 12px;">${change.type}: ${escapeHtml(change.description)}</div>`;
+        html += '</div>';
+    });
+    
+    content.innerHTML = html;
+}
+
+// Find changes between original and modified data
+function findChanges(original, modified, path) {
+    const changes = [];
+    
+    function compare(orig, mod, currentPath) {
+        if (!orig && mod) {
+            changes.push({
+                path: currentPath.join(' > ') || 'Root',
+                type: 'Added',
+                description: `New node: ${mod.name || 'unnamed'}`
+            });
+            return;
+        }
+        
+        if (orig && !mod) {
+            changes.push({
+                path: currentPath.join(' > ') || 'Root',
+                type: 'Deleted',
+                description: `Removed node: ${orig.name || 'unnamed'}`
+            });
+            return;
+        }
+        
+        if (!orig || !mod) return;
+        
+        // Check value changes
+        if (orig.value !== mod.value) {
+            changes.push({
+                path: currentPath.join(' > ') || 'Root',
+                type: 'Modified',
+                description: `Weight: ${orig.value} → ${mod.value}`
+            });
+        }
+        
+        // Check name changes
+        if (orig.name !== mod.name && (orig.name || mod.name)) {
+            changes.push({
+                path: currentPath.join(' > ') || 'Root',
+                type: 'Modified',
+                description: `Name: "${orig.name || ''}" → "${mod.name || ''}"`
+            });
+        }
+        
+        // Check text changes
+        const origText = JSON.stringify(orig.text);
+        const modText = JSON.stringify(mod.text);
+        if (origText !== modText && (orig.text || mod.text)) {
+            changes.push({
+                path: currentPath.join(' > ') || 'Root',
+                type: 'Modified',
+                description: 'Text content changed'
+            });
+        }
+        
+        // Check children
+        if (orig.children || mod.children) {
+            const origChildren = orig.children || [];
+            const modChildren = mod.children || [];
+            const maxLen = Math.max(origChildren.length, modChildren.length);
+            
+            for (let i = 0; i < maxLen; i++) {
+                const childPath = [...currentPath, modChildren[i]?.name || origChildren[i]?.name || `Child ${i + 1}`];
+                compare(origChildren[i], modChildren[i], childPath);
+            }
+        }
+    }
+    
+    compare(original, modified, path);
+    return changes;
+}
+
+// Helper to escape HTML
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // Helper function to update rootData when children are dynamically loaded
@@ -190,6 +455,8 @@ function loadModifiedData() {
 // Clear modified tree data from localStorage
 function clearModifiedData() {
     localStorage.removeItem('modifiedTreeData');
+    localStorage.removeItem('originalTreeData');
+    updateChangesPanel();
 }
 
 // Helper function to find and update a node in rootData by matching content and path
@@ -503,21 +770,514 @@ function saveCurrentViewToFile() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
 
-    // Show helpful message with file path
-    const fullPath = filename.startsWith('map/') ? filename : `map/${filename}`;
-    const message = `✓ Downloaded ${filename.split('/').pop()}\n\n` +
-        `Move this file to: ${fullPath}\n\n` +
-        `Terminal command:\n` +
-        `mv ~/Downloads/${filename.split('/').pop()} ${fullPath}`;
+// Create a new node in the current view
+function createNewNode() {
+    // Determine which node to add the child to
+    const currentHash = window.location.hash.slice(1);
+    let targetNode;
 
-    // Show alert with instructions
-    alert(message);
+    if (!currentHash) {
+        // At root level
+        targetNode = rootData;
+    } else {
+        // Navigate to the current node
+        const segments = currentHash.split('/');
+        targetNode = rootData;
+
+        for (const segment of segments) {
+            if (!targetNode.children) break;
+
+            const targetSlug = segment;
+            const nextNode = targetNode.children.find(child =>
+                nameToSlug(child.name) === targetSlug
+            );
+
+            if (!nextNode) {
+                alert('Could not find the current node to add child to.');
+                return;
+            }
+
+            targetNode = nextNode;
+        }
+    }
+
+    // Initialize children array if it doesn't exist
+    if (!targetNode.children) {
+        targetNode.children = [];
+    } else if (!Array.isArray(targetNode.children)) {
+        // Convert to array if it's an object
+        targetNode.children = Object.values(targetNode.children);
+    }
+
+    // Calculate average value from siblings
+    let averageValue = 1; // Default if no siblings
+    if (targetNode.children.length > 0) {
+        const sum = targetNode.children.reduce((acc, child) => acc + (child.value || 1), 0);
+        averageValue = Math.round(sum / targetNode.children.length);
+    }
+
+    // Find the smallest integer x where "x [edit]" is not already used
+    const existingNames = new Set(targetNode.children.map(child => child.name));
+    let x = 1;
+    while (existingNames.has(`${x} [edit]`)) {
+        x++;
+    }
+
+    // Create the new node
+    const newNode = {
+        name: `${x} [edit]`,
+        value: averageValue,
+        text: "[edit]"
+    };
+
+    // Add the new node
+    targetNode.children.push(newNode);
+
+    // Save the modified data
+    saveModifiedData();
+
+    // Re-render the view
+    reRenderCurrentView();
+}
+
+// Add a children array with a single default node
+function addChildrenToNode(nodeData) {
+    // Create a default child node with average weight
+    const defaultChild = {
+        name: '1 [edit]',
+        value: nodeData.value || 50
+    };
+    
+    // Find the node in rootData and add children array with default child
+    const currentHash = window.location.hash.slice(1);
+    
+    function findAndAddChildren(node, pathSegments) {
+        if (pathSegments.length === 0) {
+            // We're at the target level, find the node
+            if (node.children) {
+                const childrenArray = Array.isArray(node.children) ? node.children : Object.values(node.children);
+                const targetNode = childrenArray.find(child => child.name === nodeData.name);
+                if (targetNode) {
+                    targetNode.children = [defaultChild];
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Navigate deeper
+        const segment = pathSegments[0];
+        if (node.children) {
+            const childrenArray = Array.isArray(node.children) ? node.children : Object.values(node.children);
+            const nextNode = childrenArray.find(child => nameToSlug(child.name) === segment);
+            if (nextNode) {
+                return findAndAddChildren(nextNode, pathSegments.slice(1));
+            }
+        }
+        return false;
+    }
+    
+    let success = false;
+    if (!currentHash) {
+        // At root level
+        if (rootData.children) {
+            const childrenArray = Array.isArray(rootData.children) ? rootData.children : Object.values(rootData.children);
+            const targetNode = childrenArray.find(child => child.name === nodeData.name);
+            if (targetNode) {
+                targetNode.children = [defaultChild];
+                success = true;
+            }
+        }
+    } else {
+        const segments = currentHash.split('/');
+        success = findAndAddChildren(rootData, segments);
+    }
+    
+    if (success) {
+        // Also update the nodeData reference
+        nodeData.children = [defaultChild];
+        
+        // Save and re-render
+        saveModifiedData();
+        reRenderCurrentView();
+    } else {
+        alert('Could not find the node to add children to.');
+    }
+}
+
+// Delete a node from the current view
+function deleteNode(nodeData) {
+    // Determine the current parent node
+    const currentHash = window.location.hash.slice(1);
+    let parentNode;
+
+    if (!currentHash) {
+        // At root level
+        parentNode = rootData;
+    } else {
+        // Navigate to the current node
+        const segments = currentHash.split('/');
+        parentNode = rootData;
+
+        for (const segment of segments) {
+            if (!parentNode.children) break;
+
+            const targetSlug = segment;
+            const nextNode = parentNode.children.find(child =>
+                nameToSlug(child.name) === targetSlug
+            );
+
+            if (!nextNode) {
+                alert('Could not find the parent node.');
+                return;
+            }
+
+            parentNode = nextNode;
+        }
+    }
+
+    // Find and remove the node from the children array
+    if (parentNode.children && Array.isArray(parentNode.children)) {
+        const index = parentNode.children.findIndex(child => 
+            child.name === nodeData.name && 
+            child.value === nodeData.value
+        );
+
+        if (index !== -1) {
+            parentNode.children.splice(index, 1);
+            
+            // Save the modified data
+            saveModifiedData();
+            
+            // Re-render the view
+            reRenderCurrentView();
+        } else {
+            alert('Could not find the node to delete.');
+        }
+    }
+}
+
+// Make a DOM element editable when clicked
+function makeElementEditable(element, nodeData, fieldType, textIndex = null) {
+    // Only allow editing when EDIT_MODE is enabled
+    if (!__featureFlags.EDIT_MODE.enabled) {
+        return;
+    }
+    
+    const el = d3.select(element);
+    const currentContent = element.innerHTML;
+    
+    // Check if content contains <edit> or [edit]
+    const hasEditMarker = currentContent.includes('<edit>') || currentContent.includes('[edit]');
+    
+    // Add visual hint if has edit marker
+    if (hasEditMarker) {
+        el.style('cursor', 'pointer')
+          .style('outline', '1px dashed #999');
+    }
+    
+    el.on('click', function() {
+        d3.event.stopPropagation();
+        
+        // Use raw HTML content for editing (preserve HTML tags)
+        const htmlContent = currentContent;
+        
+        // Create textarea for editing
+        const textarea = document.createElement('textarea');
+        textarea.value = htmlContent;
+        textarea.style.width = '100%';
+        textarea.style.height = element.tagName === 'H3' ? '40px' : '100px';
+        textarea.style.fontSize = window.getComputedStyle(element).fontSize;
+        textarea.style.fontFamily = window.getComputedStyle(element).fontFamily;
+        textarea.style.padding = '4px';
+        textarea.style.border = '2px solid #2196F3';
+        textarea.style.borderRadius = '4px';
+        textarea.style.resize = 'vertical';
+        
+        // Replace element with textarea
+        element.style.display = 'none';
+        element.parentNode.insertBefore(textarea, element);
+        textarea.focus();
+        textarea.select();
+        
+        // Save on blur or Enter (for h3)
+        const saveEdit = () => {
+            let newValue = textarea.value.trim();
+            
+            // If name field is empty and node doesn't have img, assign next available ID
+            if (fieldType === 'name' && !newValue) {
+                const hasImg = nodeData.data.img && nodeData.data.img.trim();
+                
+                if (!hasImg) {
+                    // Find parent and get siblings to determine next ID
+                    const currentHash = window.location.hash.slice(1);
+                    let siblings = [];
+                    
+                    if (!currentHash) {
+                        // At root level
+                        siblings = rootData.children || [];
+                    } else {
+                        // Navigate to parent
+                        const segments = currentHash.split('/');
+                        let currentNode = rootData;
+                        
+                        for (const segment of segments) {
+                            if (currentNode.children) {
+                                const childrenArray = Array.isArray(currentNode.children) ? 
+                                    currentNode.children : Object.values(currentNode.children);
+                                currentNode = childrenArray.find(child => nameToSlug(child.name) === segment);
+                                if (!currentNode) break;
+                            }
+                        }
+                        
+                        if (currentNode && currentNode.children) {
+                            siblings = Array.isArray(currentNode.children) ? 
+                                currentNode.children : Object.values(currentNode.children);
+                        }
+                    }
+                    
+                    // Find the smallest integer x where "x [edit]" is not a sibling name
+                    // Exclude the current node from the check
+                    const currentNodeName = nodeData.data.name;
+                    const siblingNames = new Set(
+                        siblings
+                            .filter(s => s.name !== currentNodeName)
+                            .map(s => s.name)
+                    );
+                    let x = 1;
+                    while (siblingNames.has(`${x} [edit]`)) {
+                        x++;
+                    }
+                    
+                    newValue = `${x} [edit]`;
+                }
+            }
+            
+            if (newValue !== htmlContent) {
+                // Update the node data
+                if (fieldType === 'name') {
+                    // Store old name before updating
+                    const oldName = nodeData.data.name;
+                    
+                    if (!newValue) {
+                        // Remove the name field entirely if empty
+                        delete nodeData.data.name;
+                        updateNodeFieldInRootData({ ...nodeData.data, name: oldName }, 'name', null, true); // Pass true to indicate deletion
+                    } else {
+                        nodeData.data.name = newValue;
+                        // Pass the old name so updateNodeFieldInRootData can find the node
+                        updateNodeFieldInRootData({ ...nodeData.data, name: oldName }, 'name', newValue);
+                    }
+                } else if (fieldType === 'text') {
+                    // Update text array
+                    if (typeof nodeData.data.text === 'string') {
+                        nodeData.data.text = newValue;
+                    } else if (Array.isArray(nodeData.data.text)) {
+                        if (textIndex !== null) {
+                            nodeData.data.text[textIndex] = newValue;
+                        }
+                    }
+                    updateNodeFieldInRootData(nodeData.data, 'text', nodeData.data.text);
+                }
+                
+                saveModifiedData();
+                
+                // Re-render to show the updated content properly
+                reRenderCurrentView();
+            } else {
+                // No changes, just restore the element
+                textarea.remove();
+                element.style.display = '';
+            }
+        };
+        
+        textarea.addEventListener('blur', saveEdit);
+        
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (element.tagName === 'H3' || e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                saveEdit();
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                textarea.remove();
+                element.style.display = '';
+            }
+        });
+    });
+}
+
+// Open a text editor for a node
+function openTextEditor(nodeData) {
+    // Create a modal overlay
+    const overlay = d3.select('body').append('div')
+        .style('position', 'fixed')
+        .style('top', '0')
+        .style('left', '0')
+        .style('width', '100%')
+        .style('height', '100%')
+        .style('background', 'rgba(0, 0, 0, 0.7)')
+        .style('z-index', '10000')
+        .style('display', 'flex')
+        .style('align-items', 'center')
+        .style('justify-content', 'center')
+        .on('click', function() {
+            if (d3.event.target === this) {
+                overlay.remove();
+            }
+        });
+
+    // Create editor container
+    const editor = overlay.append('div')
+        .style('background', 'white')
+        .style('padding', '20px')
+        .style('border-radius', '8px')
+        .style('box-shadow', '0 4px 20px rgba(0, 0, 0, 0.3)')
+        .style('max-width', '800px')
+        .style('width', '90%')
+        .style('max-height', '80vh')
+        .style('display', 'flex')
+        .style('flex-direction', 'column')
+        .style('gap', '15px');
+
+    // Add title
+    editor.append('h2')
+        .style('margin', '0')
+        .style('color', '#333')
+        .text(`Edit: ${nodeData.name || 'Text Content'}`);
+
+    // Get current text content
+    let currentText = '';
+    if (Array.isArray(nodeData.text)) {
+        currentText = nodeData.text.join('\n\n');
+    } else if (typeof nodeData.text === 'string') {
+        currentText = nodeData.text;
+    }
+
+    // Add textarea
+    const textarea = editor.append('textarea')
+        .style('width', '100%')
+        .style('min-height', '300px')
+        .style('font-family', 'monospace')
+        .style('font-size', '14px')
+        .style('padding', '10px')
+        .style('border', '2px solid #ccc')
+        .style('border-radius', '4px')
+        .style('resize', 'vertical')
+        .property('value', currentText);
+
+    // Add buttons container
+    const buttons = editor.append('div')
+        .style('display', 'flex')
+        .style('gap', '10px')
+        .style('justify-content', 'flex-end');
+
+    // Cancel button
+    buttons.append('button')
+        .style('padding', '10px 20px')
+        .style('background', '#ccc')
+        .style('border', 'none')
+        .style('border-radius', '4px')
+        .style('cursor', 'pointer')
+        .style('font-size', '14px')
+        .text('Cancel')
+        .on('click', () => overlay.remove());
+
+    // Save button
+    buttons.append('button')
+        .style('padding', '10px 20px')
+        .style('background', '#4CAF50')
+        .style('color', 'white')
+        .style('border', 'none')
+        .style('border-radius', '4px')
+        .style('cursor', 'pointer')
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
+        .text('Save')
+        .on('click', () => {
+            const newText = textarea.property('value');
+            
+            // Split by double newlines to create array if it has multiple paragraphs
+            const paragraphs = newText.split('\n\n').filter(p => p.trim() !== '');
+            
+            if (paragraphs.length > 1) {
+                nodeData.text = paragraphs;
+            } else {
+                nodeData.text = newText;
+            }
+            
+            updateNodeFieldInRootData(nodeData, 'text', nodeData.text);
+            saveModifiedData();
+            overlay.remove();
+            reRenderCurrentView();
+        });
+
+    // Focus textarea
+    textarea.node().focus();
+}
+
+// Update a specific field in rootData (similar to updateNodeValueInRootData but for any field)
+function updateNodeFieldInRootData(nodeData, fieldName, newValue, deleteField = false) {
+    const currentHash = window.location.hash.slice(1);
+    
+    function findAndUpdate(node, pathSegments) {
+        if (pathSegments.length === 0) {
+            // We're at the target level, find the node
+            if (node.children) {
+                const childrenArray = Array.isArray(node.children) ? node.children : Object.values(node.children);
+                const targetNode = childrenArray.find(child => 
+                    child.name === nodeData.name
+                );
+                if (targetNode) {
+                    if (deleteField) {
+                        delete targetNode[fieldName];
+                    } else {
+                        targetNode[fieldName] = newValue;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Navigate deeper
+        const segment = pathSegments[0];
+        if (node.children) {
+            const childrenArray = Array.isArray(node.children) ? node.children : Object.values(node.children);
+            const nextNode = childrenArray.find(child => nameToSlug(child.name) === segment);
+            if (nextNode) {
+                return findAndUpdate(nextNode, pathSegments.slice(1));
+            }
+        }
+        return false;
+    }
+    
+    if (!currentHash) {
+        // At root level
+        if (rootData.children) {
+            const childrenArray = Array.isArray(rootData.children) ? rootData.children : Object.values(rootData.children);
+            const targetNode = childrenArray.find(child => child.name === nodeData.name);
+            if (targetNode) {
+                if (deleteField) {
+                    delete targetNode[fieldName];
+                } else {
+                    targetNode[fieldName] = newValue;
+                }
+                return true;
+            }
+        }
+    } else {
+        const segments = currentHash.split('/');
+        return findAndUpdate(rootData, segments);
+    }
+    
+    return false;
 }
 
 // Helper function to re-render the current view
 function reRenderCurrentView() {
-    // Clear all weight labels before re-rendering
+    // Clear all weight labels (which now include edit buttons) before re-rendering
     d3.selectAll('.weight-label').remove();
 
     // Clear the SVG
@@ -648,6 +1408,194 @@ function toggleWeightLabels(show) {
     }
 }
 
+// Create weight labels with edit and delete buttons for current view
+function createWeightLabelsForView() {
+    if (!__featureFlags.EDIT_MODE.enabled) return;
+    
+    // Clear existing labels first
+    d3.selectAll('.weight-label').remove();
+    
+    // Get content frames from the current view
+    d3.selectAll('.content-frame').each(function (d) {
+        if (!d || d3.select(this).classed('header-frame')) return;
+        
+        const frame = this;
+        const rect = frame.getBoundingClientRect();
+        const label = d3.select('body').append("div")
+            .attr("class", "weight-label")
+            .attr('data-node-id', hash(d, 0))
+            .style('pointer-events', 'auto')
+            .style('display', 'flex')
+            .style('gap', '5px')
+            .style('align-items', 'center');
+
+        // Add "Add Children" button for leaf nodes (nodes without children and with a name)
+        if (!d.data.children && !d.data.children_file && d.data.name) {
+            const addChildrenBtn = label.append('button')
+                .text('+')
+                .style('width', '24px')
+                .style('height', '24px')
+                .style('font-size', '16pt')
+                .style('font-weight', 'bold')
+                .style('line-height', '1')
+                .style('padding', '0')
+                .style('border', '2px solid #000')
+                .style('border-radius', '50%')
+                .style('background', 'rgba(76, 175, 80, 0.9)')
+                .style('color', '#fff')
+                .style('cursor', 'pointer')
+                .style('display', 'flex')
+                .style('align-items', 'center')
+                .style('justify-content', 'center')
+                .on('click', function () {
+                    d3.event.stopPropagation();
+                    addChildrenToNode(d.data);
+                })
+                .on('mouseover', function () {
+                    d3.select(this).style('background', 'rgba(56, 142, 60, 1)');
+                })
+                .on('mouseout', function () {
+                    d3.select(this).style('background', 'rgba(76, 175, 80, 0.9)');
+                });
+        }
+
+        // Add edit button (skip for nodes with img)
+        if (!d.data.img) {
+            const editBtn = label.append('button')
+                .text('✎')
+                .style('width', '24px')
+                .style('height', '24px')
+                .style('font-size', '14pt')
+                .style('font-weight', 'bold')
+                .style('line-height', '1')
+                .style('padding', '0')
+                .style('border', '2px solid #000')
+                .style('border-radius', '4px')
+                .style('background', 'rgba(33, 150, 243, 0.9)')
+                .style('color', '#fff')
+                .style('cursor', 'pointer')
+                .style('display', 'flex')
+                .style('align-items', 'center')
+                .style('justify-content', 'center')
+                .on('click', function () {
+                    d3.event.stopPropagation();
+                    openTextEditor(d.data);
+                })
+                .on('mouseover', function () {
+                    d3.select(this).style('background', 'rgba(25, 118, 210, 1)');
+                })
+                .on('mouseout', function () {
+                    d3.select(this).style('background', 'rgba(33, 150, 243, 0.9)');
+                });
+        }
+
+        // Add input field
+        const input = label.append('input')
+            .attr('type', 'number')
+            .attr('value', d.data.value || d.value)
+            .style('width', '60px')
+            .style('font-size', '14pt')
+            .style('font-weight', 'bold')
+            .style('text-align', 'center')
+            .style('border', 'none')
+            .style('background', 'transparent')
+            .style('color', '#000')
+            .on('keydown', function () {
+                if (d3.event.key === 'Enter') {
+                    const newValue = parseFloat(this.value);
+                    if (!isNaN(newValue) && newValue > 0) {
+                        localStorage.setItem('lastFocusedNodeId', hash(d, 0));
+                        d.data.value = newValue;
+                        if (updateNodeValueInRootData(d.data, newValue)) {
+                            saveModifiedData();
+                            reRenderCurrentView();
+                        }
+                    }
+                } else if (d3.event.key === 'ArrowUp' || d3.event.key === 'ArrowDown') {
+                    setTimeout(() => {
+                        const newValue = parseFloat(this.value);
+                        if (!isNaN(newValue) && newValue > 0) {
+                            localStorage.setItem('lastFocusedNodeId', hash(d, 0));
+                            d.data.value = newValue;
+                            if (updateNodeValueInRootData(d.data, newValue)) {
+                                saveModifiedData();
+                                reRenderCurrentView();
+                            }
+                        }
+                    }, 0);
+                }
+            })
+            .on('change', function () {
+                const newValue = parseFloat(this.value);
+                if (!isNaN(newValue) && newValue > 0) {
+                    d.data.value = newValue;
+                    if (updateNodeValueInRootData(d.data, newValue)) {
+                        saveModifiedData();
+                    }
+                }
+            })
+            .on('blur', function () {
+                const newValue = parseFloat(this.value);
+                if (!isNaN(newValue) && newValue > 0) {
+                    localStorage.setItem('lastFocusedNodeId', hash(d, 0));
+                    d.data.value = newValue;
+                    if (updateNodeValueInRootData(d.data, newValue)) {
+                        saveModifiedData();
+                        reRenderCurrentView();
+                    }
+                }
+            })
+            .on('click', function () {
+                d3.event.stopPropagation();
+                this.select();
+            });
+
+        // Add delete button
+        const deleteBtn = label.append('button')
+            .text('×')
+            .style('width', '24px')
+            .style('height', '24px')
+            .style('font-size', '18pt')
+            .style('font-weight', 'bold')
+            .style('line-height', '1')
+            .style('padding', '0')
+            .style('border', '2px solid #000')
+            .style('border-radius', '50%')
+            .style('background', 'rgba(255, 0, 0, 0.8)')
+            .style('color', '#fff')
+            .style('cursor', 'pointer')
+            .style('display', 'flex')
+            .style('align-items', 'center')
+            .style('justify-content', 'center')
+            .on('click', function () {
+                d3.event.stopPropagation();
+                if (confirm(`Delete node "${d.data.name}"?`)) {
+                    deleteNode(d.data);
+                }
+            })
+            .on('mouseover', function () {
+                d3.select(this).style('background', 'rgba(200, 0, 0, 1)');
+            })
+            .on('mouseout', function () {
+                d3.select(this).style('background', 'rgba(255, 0, 0, 0.8)');
+            });
+
+        label.style('left', (rect.left + rect.width / 2) + 'px')
+            .style('top', (rect.top + rect.height / 2) + 'px')
+            .style('transform', 'translate(-50%, -50%)');
+
+        // Check if this is the node that should be refocused
+        const lastFocusedNodeId = localStorage.getItem('lastFocusedNodeId');
+        if (lastFocusedNodeId && hash(d, 0).toString() === lastFocusedNodeId) {
+            setTimeout(() => {
+                input.node().focus();
+                input.node().select();
+                localStorage.removeItem('lastFocusedNodeId');
+            }, 100);
+        }
+    });
+}
+
 // Function to update weight label positions (call during transitions/scrolling)
 function updateWeightLabelPositions() {
     if (!__featureFlags.EDIT_MODE.enabled) return;
@@ -656,6 +1604,8 @@ function updateWeightLabelPositions() {
         if (d && !d3.select(this).classed('header-frame')) {
             const rect = this.getBoundingClientRect();
             const nodeId = hash(d, 0);
+            
+            // Update weight labels (which now include edit buttons)
             d3.selectAll('.weight-label')
                 .filter(function () { return d3.select(this).attr('data-node-id') === nodeId.toString(); })
                 .style('left', (rect.left + rect.width / 2) + 'px')
@@ -718,6 +1668,41 @@ var svg = d3.select('.main').append('svg')
 // .style("font", "100% sans-serif");
 
 let rootData = null; // Store root data for browser navigation
+let isAnimating = false; // Flag to prevent label creation during animations
+
+// Keyboard handler for enabling edit mode with 10 spacebar presses
+let spacebarPressCount = 0;
+let spacebarResetTimeout = null;
+
+document.addEventListener('keydown', function(event) {
+    // Only count spacebar if not in an input/textarea
+    const activeElement = document.activeElement;
+    const isInputActive = activeElement && (
+        activeElement.tagName === 'INPUT' || 
+        activeElement.tagName === 'TEXTAREA' ||
+        activeElement.isContentEditable
+    );
+    
+    if (event.code === 'Space' && !isInputActive && !__featureFlags.EDIT_MODE.enabled) {
+        event.preventDefault(); // Prevent page scroll
+        spacebarPressCount++;
+        
+        // Reset counter after 2 seconds of inactivity
+        if (spacebarResetTimeout) {
+            clearTimeout(spacebarResetTimeout);
+        }
+        spacebarResetTimeout = setTimeout(() => {
+            spacebarPressCount = 0;
+        }, 2000);
+        
+        // Enable edit mode after 10 presses
+        if (spacebarPressCount >= 10) {
+            spacebarPressCount = 0;
+            clearTimeout(spacebarResetTimeout);
+            __featureFlags.EDIT_MODE.set(true);
+        }
+    }
+});
 
 // Check if we should use modified data from localStorage
 const storedFlag = localStorage.getItem('featureFlag_EDIT_MODE');
@@ -726,6 +1711,7 @@ const modifiedData = loadModifiedData();
 // Show control buttons if feature is enabled
 if (storedFlag === 'true') {
     showControlButtons();
+    createChangesPanel();
 }
 
 if (modifiedData && storedFlag === 'true') {
@@ -742,9 +1728,17 @@ if (modifiedData && storedFlag === 'true') {
 
     // Handle browser back/forward buttons
     setupPopstateHandler();
+    
+    // Update changes panel
+    updateChangesPanel();
 } else {
     // Load from root.json
     d3.json("./map/root.json").then(function (data) {
+        // Store original data for comparison
+        if (!localStorage.getItem('originalTreeData')) {
+            localStorage.setItem('originalTreeData', JSON.stringify(data));
+        }
+        
         rootData = data; // Save for later use
         const root = treemap(data);
 
@@ -758,6 +1752,11 @@ if (modifiedData && storedFlag === 'true') {
 
         // Handle browser back/forward buttons
         setupPopstateHandler();
+        
+        // Update changes panel if in edit mode
+        if (storedFlag === 'true') {
+            updateChangesPanel();
+        }
     }).catch(function (error) {
     });
 }
@@ -1140,6 +2139,77 @@ function render(group, root) {
     })
     content_divs.attr("class", (d, i) => content_classes[hash(d, i)].join(" "))
 
+    // Add drag and drop handlers for image upload in EDIT_MODE
+    if (__featureFlags.EDIT_MODE.enabled) {
+        content_divs.each(function(d) {
+            const element = this;
+            
+            element.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.style.border = '3px dashed #2196F3';
+                this.style.backgroundColor = 'rgba(33, 150, 243, 0.1)';
+            });
+            
+            element.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.style.border = '';
+                this.style.backgroundColor = '';
+            });
+            
+            element.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.style.border = '';
+                this.style.backgroundColor = '';
+                
+                // Try to get URL from drag data first (for images dragged from web)
+                let imageUrl = e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain');
+                
+                // Check if it's a valid image URL
+                if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
+                    // Validate it looks like an image URL
+                    const imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg|bmp|ico)(\?.*)?$/i;
+                    if (imageExtensions.test(imageUrl)) {
+                        // Update the node with the image URL
+                        d.data.img = imageUrl;
+                        
+                        // Update in rootData
+                        updateNodeFieldInRootData(d.data, 'img', imageUrl);
+                        
+                        // Save and re-render
+                        saveModifiedData();
+                        reRenderCurrentView();
+                    }
+                    return;
+                }
+                
+                // Fallback: handle local file drops
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    
+                    // Check if it's an image
+                    if (!file.type.startsWith('image/')) {
+                        return;
+                    }
+                    
+                    // Update the node with the local image path
+                    const imagePath = `img/photos/${file.name}`;
+                    d.data.img = imagePath;
+                    
+                    // Update in rootData
+                    updateNodeFieldInRootData(d.data, 'img', imagePath);
+                    
+                    // Save and re-render
+                    saveModifiedData();
+                    reRenderCurrentView();
+                }
+            });
+        });
+    }
+
     var header_div = div.filter(d => d === root)
         .attr("class", d => d.parent ? "clickable header" : "header");
 
@@ -1161,10 +2231,21 @@ function render(group, root) {
         .data(d => [d.data.name])
         .join("h3")
         .html(d => d)
+        .each(function(d) {
+            if (__featureFlags.EDIT_MODE.enabled) {
+                makeElementEditable(this, d3.select(this.parentNode).datum(), 'name');
+            }
+        });
     text_divs.selectAll("p")
         .data(d => pick_content(d.data))
         .join("p")
         .html(d => d)
+        .each(function(textContent, i) {
+            if (__featureFlags.EDIT_MODE.enabled) {
+                const nodeData = d3.select(this.parentNode).datum();
+                makeElementEditable(this, nodeData, 'text', i);
+            }
+        });
 
     // Add paragraphs without name and with text
     var text_only_divs = content_divs.filter(d => d.data.text);
@@ -1172,112 +2253,21 @@ function render(group, root) {
         .data(d => pick_content(d.data))
         .join("p")
         .html(d => d)
-
-    // Add weight labels if feature flag is enabled (overlaid on top of content)
-    if (__featureFlags.EDIT_MODE.enabled) {
-        const content_frames = contentFrame.filter(d => d !== root);
-        content_frames.each(function (d) {
-            const frame = this;
-            // Use setTimeout to ensure DOM is rendered and we can get bounding rect
-            setTimeout(() => {
-                const rect = frame.getBoundingClientRect();
-                const label = d3.select('body').append("div")
-                    .attr("class", "weight-label")
-                    .attr('data-node-id', hash(d, 0))
-                    .style('pointer-events', 'auto');
-
-                // Add input field
-                const input = label.append('input')
-                    .attr('type', 'number')
-                    .attr('value', d.data.value || d.value)
-                    .style('width', '60px')
-                    .style('font-size', '14pt')
-                    .style('font-weight', 'bold')
-                    .style('text-align', 'center')
-                    .style('border', 'none')
-                    .style('background', 'transparent')
-                    .style('color', '#000')
-                    .on('keydown', function () {
-                        if (d3.event.key === 'Enter') {
-                            const newValue = parseFloat(this.value);
-                            if (!isNaN(newValue) && newValue > 0) {
-                                // Store the node ID to refocus after re-render
-                                localStorage.setItem('lastFocusedNodeId', hash(d, 0));
-
-                                // Update the hierarchy node
-                                d.data.value = newValue;
-                                // Update rootData
-                                if (updateNodeValueInRootData(d.data, newValue)) {
-                                    saveModifiedData();
-                                    // Update successful
-                                    // Re-rendering
-                                    reRenderCurrentView();
-                                } else {
-                                    // Update failed
-                                }
-                            }
-                        } else if (d3.event.key === 'ArrowUp' || d3.event.key === 'ArrowDown') {
-                            // Let the default behavior happen first (increment/decrement)
-                            // Then trigger update on the next tick
-                            setTimeout(() => {
-                                const newValue = parseFloat(this.value);
-                                if (!isNaN(newValue) && newValue > 0) {
-                                    // Store the node ID to refocus after re-render
-                                    localStorage.setItem('lastFocusedNodeId', hash(d, 0));
-
-                                    // Update the hierarchy node
-                                    d.data.value = newValue;
-                                    // Update rootData
-                                    if (updateNodeValueInRootData(d.data, newValue)) {
-                                        saveModifiedData();
-                                        // Update successful
-                                        // Re-rendering
-                                        reRenderCurrentView();
-                                    } else {
-                                        // Update failed
-                                    }
-                                }
-                            }, 0);
-                        }
-                    })
-                    .on('change', function () {
-                        const newValue = parseFloat(this.value);
-                        if (!isNaN(newValue) && newValue > 0) {
-                            // Update the hierarchy node
-                            d.data.value = newValue;
-                            // Update rootData
-                            if (updateNodeValueInRootData(d.data, newValue)) {
-                                saveModifiedData();
-                                // Update successful
-                            }
-                        }
-                    })
-                    .on('click', function () {
-                        // Prevent click from propagating to zoom
-                        d3.event.stopPropagation();
-                        this.select();
-                    });
-
-                label.style('left', (rect.left + rect.width / 2) + 'px')
-                    .style('top', (rect.top + rect.height / 2) + 'px')
-                    .style('transform', 'translate(-50%, -50%)');
-
-                // Check if this is the node that should be refocused
-                const lastFocusedNodeId = localStorage.getItem('lastFocusedNodeId');
-                if (lastFocusedNodeId && hash(d, 0).toString() === lastFocusedNodeId) {
-                    setTimeout(() => {
-                        input.node().focus();
-                        input.node().select();
-                        localStorage.removeItem('lastFocusedNodeId');
-                    }, 100);
-                }
-            }, 0);
+        .each(function(textContent, i) {
+            if (__featureFlags.EDIT_MODE.enabled) {
+                const nodeData = d3.select(this.parentNode).datum();
+                makeElementEditable(this, nodeData, 'text', i);
+            }
         });
-    }
 
     group.call(fit_content, root);
     group.call(position, root);
 
+    // Create weight labels after rendering (only for non-animated renders)
+    if (__featureFlags.EDIT_MODE.enabled && !isAnimating) {
+        setTimeout(createWeightLabelsForView, 100);
+    }
+    
     // Check for overflow after rendering (with a delay to ensure DOM is ready and positioned)
     if (__featureFlags.EDIT_MODE.enabled) {
         setTimeout(highlightOverflowNodes, 250);
@@ -1286,6 +2276,9 @@ function render(group, root) {
 
 // When zooming in, draw the new nodes on top, and fade them in.
 function zoomin(group, d) {
+    // Clear weight labels immediately when navigation starts
+    d3.selectAll('.weight-label').remove();
+    
     // If the node has a children_file, load it before rendering
     if (d.data.children_file && !d.children) {
         d3.json(d.data.children_file).then(function (children) {
@@ -1348,6 +2341,7 @@ function zoomin(group, d) {
 function doZoomIn(group, d) {
     // Clear weight labels during transition
     d3.selectAll('.weight-label').remove();
+    isAnimating = true;
 
     const group0 = group.attr("pointer-events", "none");
     const group1 = group = svg.append("g").call(render, d);
@@ -1376,9 +2370,10 @@ function doZoomIn(group, d) {
                 .attrTween("opacity", () => d3.interpolate(0, 1))
                 .call(position, d))
         .on("end", () => {
-            // Update weight label positions after transition
+            isAnimating = false;
+            // Create weight labels after transition
             if (__featureFlags.EDIT_MODE.enabled) {
-                setTimeout(updateWeightLabelPositions, 100);
+                setTimeout(createWeightLabelsForView, 100);
             }
             // Check for overflow after transition (longer delay to ensure layout is stable)
             if (__featureFlags.EDIT_MODE.enabled) {
@@ -1391,6 +2386,7 @@ function doZoomIn(group, d) {
 function zoomout(group, d) {
     // Clear weight labels during transition
     d3.selectAll('.weight-label').remove();
+    isAnimating = true;
 
     // Check if parent has incorrect full-screen coordinates when it shouldn't be root
     // (This happens after URL navigation when intermediate nodes get rebuilt as full-screen)
@@ -1449,9 +2445,10 @@ function zoomout(group, d) {
                 .style("opacity", 1)
                 .call(position, d.parent))
         .on("end", () => {
-            // Update weight label positions after transition
+            isAnimating = false;
+            // Create weight labels after transition
             if (__featureFlags.EDIT_MODE.enabled) {
-                setTimeout(updateWeightLabelPositions, 100);
+                setTimeout(createWeightLabelsForView, 100);
             }
             // Check for overflow after transition (longer delay to ensure layout is stable)
             if (__featureFlags.EDIT_MODE.enabled) {
