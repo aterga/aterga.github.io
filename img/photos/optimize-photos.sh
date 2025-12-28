@@ -24,10 +24,9 @@ for img in *.JPG *.jpg *.JPEG *.jpeg; do
     magick "$img" \
         -auto-orient \
         -resize 1000x1000\> \
-        -strip \
         -sampling-factor 4:2:0 \
         -colorspace sRGB \
-        -quality 82 \
+        -quality 85 \
         -interlace Plane \
         -define jpeg:dct-method=float \
         "$output"
