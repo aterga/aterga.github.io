@@ -61,12 +61,6 @@
       "value": 20
     },
     {
-      "name": "Photography",
-      "text": "Impressions from previous years.",
-      "children_file": "map/photography.json",
-      "value": 20
-    },
-    {
       "name": "More from my Ph.D.",
       "text": "",
       "value": 20,
@@ -76,7 +70,7 @@
       "name": "Get in touch",
       "value": 40,
       "text": [
-        "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2025.pdf'>CV</a>",
+        "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2026.pdf'>CV</a>",
         "Parkweg 8<br>8134 Zurich<br>Switzerland"
       ]
     }

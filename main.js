@@ -2180,11 +2180,27 @@ function render(group, root) {
                     // Validate it looks like an image URL
                     const imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg|bmp|ico)(\?.*)?$/i;
                     if (imageExtensions.test(imageUrl)) {
-                        // Update the node with the image URL
-                        d.data.img = imageUrl;
+                        // Extract filename without extension for the name
+                        const urlPath = imageUrl.split('?')[0]; // Remove query params
+                        const filename = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+                        const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.')) || filename;
                         
-                        // Update in rootData
+                        // Set up the node with name, img, value, and children
+                        d.data.name = nameWithoutExt;
+                        d.data.img = imageUrl;
+                        d.data.value = 1;
+                        d.data.children = [
+                            {
+                                img: imageUrl,
+                                value: 1
+                            }
+                        ];
+                        
+                        // Update all fields in rootData
+                        updateNodeFieldInRootData(d.data, 'name', nameWithoutExt);
                         updateNodeFieldInRootData(d.data, 'img', imageUrl);
+                        updateNodeFieldInRootData(d.data, 'value', 1);
+                        updateNodeFieldInRootData(d.data, 'children', d.data.children);
                         
                         // Save and re-render
                         saveModifiedData();
@@ -2203,12 +2219,29 @@ function render(group, root) {
                         return;
                     }
                     
-                    // Update the node with the local image path
-                    const imagePath = `img/photos/${file.name}`;
-                    d.data.img = imagePath;
+                    // Extract filename without extension for the name
+                    const filename = file.name;
+                    const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.')) || filename;
                     
-                    // Update in rootData
+                    // Build the image path
+                    const imagePath = `img/photos/${file.name}`;
+                    
+                    // Set up the node with name, img, value, and children
+                    d.data.name = nameWithoutExt;
+                    d.data.img = imagePath;
+                    d.data.value = 1;
+                    d.data.children = [
+                        {
+                            img: imagePath,
+                            value: 1
+                        }
+                    ];
+                    
+                    // Update all fields in rootData
+                    updateNodeFieldInRootData(d.data, 'name', nameWithoutExt);
                     updateNodeFieldInRootData(d.data, 'img', imagePath);
+                    updateNodeFieldInRootData(d.data, 'value', 1);
+                    updateNodeFieldInRootData(d.data, 'children', d.data.children);
                     
                     // Save and re-render
                     saveModifiedData();
