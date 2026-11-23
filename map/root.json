@@ -43,7 +43,7 @@
         "I'm interested in tech-first organizations whose mission is beyond (just) making profit.",
         "If you're a founder or technical decision-maker in such an organization and would like to collaborate, please tap here."
       ],
-      "value": 50,
+      "value": 60,
       "children_file": "map/apply.json"
     },
     {
@@ -68,7 +68,7 @@
     },
     {
       "name": "Get in touch",
-      "value": 40,
+      "value": 60,
       "text": [
         "<small><code>tergabrielyan АТ gmail.com</code></small><br><br><a href='https://linktr.ee/arshavir'>Linktree</a><br><a href='https://github.com/aterga'>GitHub</a><br><a href='docs/arshavir_cv_2026.pdf'>CV</a>",
         "Parkweg 8<br>8134 Zurich<br>Switzerland"
